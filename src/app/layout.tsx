@@ -23,22 +23,23 @@ export const metadata: Metadata = {
   description: 'Shop premium quality wigs and hair bundles in Kampala, Uganda. Bob wigs, bundles, pixie wigs and more. Free pickup or delivery available.',
   keywords: ['wigs', 'hair bundles', 'kampala', 'uganda', 'bob wig', 'pixie wig', 'hair extensions'],
   manifest: '/manifest.json',
-  themeColor: '#FFCC00',
   appleWebApp: {
     capable: true,
     statusBarStyle: 'default',
     title: 'Ole Hair',
-  },
-  viewport: {
-    width: 'device-width',
-    initialScale: 1,
-    maximumScale: 5,
   },
   openGraph: {
     title: 'Ole Hair - Premium Wigs & Hair Bundles',
     description: 'Shop premium quality wigs and hair bundles in Kampala, Uganda',
     type: 'website',
   },
+}
+
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 5,
+  themeColor: '#FFCC00',
 }
 
 export default function RootLayout({

@@ -1,12 +1,12 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { Suspense, useEffect, useState } from 'react'
 import { useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 import { formatCurrency } from '@/lib/utils'
 import { FaWhatsapp, FaCheckCircle } from 'react-icons/fa'
 
-export default function ConfirmationPage() {
+function ConfirmationContent() {
   const searchParams = useSearchParams()
   const orderNumber = searchParams.get('order')
   const [orderData, setOrderData] = useState<any>(null)
@@ -173,5 +173,17 @@ export default function ConfirmationPage() {
         </div>
       </div>
     </div>
+  )
+}
+
+export default function ConfirmationPage() {
+  return (
+    <Suspense fallback={
+      <div className="container-custom py-20 text-center">
+        <p className="text-gray-600">Loading order details...</p>
+      </div>
+    }>
+      <ConfirmationContent />
+    </Suspense>
   )
 }

@@ -1,0 +1,102 @@
+import { Product } from '@/types'
+
+export const products: Product[] = [
+  {
+    id: '1',
+    name: '5x5 Bob Wig',
+    description: 'Premium 5x5 lace closure bob wig with natural hairline. Made from 100% virgin hair for a natural look and feel. Perfect for everyday wear.',
+    price: 400000,
+    category: 'wig',
+    type: 'Bob Wig',
+    size: '5x5',
+    image: '/images/placeholder-wig-1.svg',
+    inStock: true,
+  },
+  {
+    id: '2',
+    name: '4x4 Bob Wig',
+    description: 'Classic 4x4 lace closure bob wig, versatile and elegant. Premium quality with natural hairline for a seamless look.',
+    price: 350000,
+    category: 'wig',
+    type: 'Bob Wig',
+    size: '4x4',
+    image: '/images/placeholder-wig-2.svg',
+    inStock: true,
+  },
+  {
+    id: '3',
+    name: '14-inch Hair Bundle',
+    description: 'High quality 14-inch virgin hair bundle. Soft, silky texture that can be colored, straightened, or curled.',
+    price: 130000,
+    category: 'bundle',
+    type: 'Hair Bundle',
+    length: '14"',
+    image: '/images/placeholder-bundle-1.svg',
+    inStock: true,
+  },
+  {
+    id: '4',
+    name: '10-inch Hair Bundle',
+    description: 'Premium 10-inch virgin hair bundle. Perfect for shorter styles with natural shine and movement.',
+    price: 172000,
+    category: 'bundle',
+    type: 'Hair Bundle',
+    length: '10"',
+    image: '/images/placeholder-bundle-2.svg',
+    inStock: true,
+  },
+  {
+    id: '5',
+    name: '18-inch Hair Bundle',
+    description: 'Luxurious 18-inch virgin hair bundle. Long, flowing hair with beautiful texture and volume.',
+    price: 176000,
+    category: 'bundle',
+    type: 'Hair Bundle',
+    length: '18"',
+    image: '/images/placeholder-bundle-3.svg',
+    inStock: true,
+  },
+  {
+    id: '6',
+    name: '20-inch Hair Bundle',
+    description: 'Extra long 20-inch virgin hair bundle. Premium quality for dramatic length and style versatility.',
+    price: 190000,
+    category: 'bundle',
+    type: 'Hair Bundle',
+    length: '20"',
+    image: '/images/placeholder-bundle-4.svg',
+    inStock: true,
+  },
+  {
+    id: '7',
+    name: 'Pixie Wig',
+    description: 'Stylish short pixie cut wig, modern and chic. Low maintenance with high fashion appeal.',
+    price: 220000,
+    category: 'wig',
+    type: 'Pixie Wig',
+    image: '/images/placeholder-wig-3.svg',
+    inStock: true,
+  },
+  {
+    id: '8',
+    name: 'Curly Fringe Wig',
+    description: 'Beautiful curly wig with fringe, full volume and bounce. Natural-looking curls that last.',
+    price: 250000,
+    category: 'wig',
+    type: 'Curly Wig',
+    image: '/images/placeholder-wig-4.svg',
+    inStock: true,
+  },
+]
+
+export const getProductById = (id: string): Product | undefined => {
+  return products.find(product => product.id === id)
+}
+
+export const getProductsByCategory = (category: 'wig' | 'bundle'): Product[] => {
+  return products.filter(product => product.category === category)
+}
+
+export const getFeaturedProducts = (limit: number = 4): Product[] => {
+  return products.slice(0, limit)
+}

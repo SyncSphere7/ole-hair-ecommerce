@@ -13,9 +13,12 @@ export default function Home() {
       <section className="relative bg-gradient-to-br from-gray-50 to-white py-20 md:py-32">
         <div className="container-custom">
           <div className="max-w-3xl mx-auto text-center">
-            <h1 className="text-4xl md:text-6xl font-serif mb-6 text-black leading-tight">
+            <h1 className="text-4xl md:text-6xl font-serif mb-4 text-black leading-tight">
               Premium Wigs & Hair Bundles
             </h1>
+            <p className="text-xl md:text-2xl text-gold font-semibold mb-6 italic">
+              Quality over Quantity
+            </p>
             <p className="text-lg md:text-xl text-gray-700 mb-8 leading-relaxed">
               Discover our collection of high-quality wigs and virgin hair bundles. 
               Elevate your style with elegance and confidence.

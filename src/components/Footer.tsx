@@ -18,6 +18,9 @@ export default function Footer() {
                 className="h-10 w-auto object-contain"
               />
             </Link>
+            <p className="text-gold text-sm font-semibold italic mb-2">
+              Quality over Quantity
+            </p>
             <p className="text-gray-300 text-sm leading-relaxed">
               Premium quality wigs and hair bundles in Kampala, Uganda. Your beauty, our passion.
             </p>

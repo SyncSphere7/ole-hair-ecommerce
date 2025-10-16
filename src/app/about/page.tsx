@@ -7,7 +7,10 @@ export default function AboutPage() {
       <div className="container-custom max-w-4xl">
         {/* Hero Section */}
         <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-5xl font-serif mb-6">About Ole Hair</h1>
+          <h1 className="text-4xl md:text-5xl font-serif mb-4">About Ole Hair</h1>
+          <p className="text-xl md:text-2xl text-gold font-semibold mb-4 italic">
+            Quality over Quantity
+          </p>
           <p className="text-xl text-gray-700 leading-relaxed">
             Your trusted source for premium wigs and hair bundles in Kampala, Uganda.
           </p>

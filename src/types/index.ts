@@ -8,7 +8,12 @@ export interface Product {
   length?: string
   size?: string
   image: string
+  images?: string[]
   inStock: boolean
+  stockCount?: number
+  isNew?: boolean
+  videoUrl?: string
+  relatedProducts?: string[]
 }
 
 export interface CartItem extends Product {

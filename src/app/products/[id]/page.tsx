@@ -1,12 +1,15 @@
 'use client'
 
 import { useParams, useRouter } from 'next/navigation'
-import Image from 'next/image'
 import Link from 'next/link'
-import { getProductById } from '@/data/products'
+import { getProductById, products } from '@/data/products'
 import { formatCurrency } from '@/lib/utils'
 import { useCartStore } from '@/store/cartStore'
+import { useWishlistStore } from '@/store/wishlistStore'
 import { useState } from 'react'
+import { FiHeart } from 'react-icons/fi'
+import ImageGallery from '@/components/ImageGallery'
+import ProductCard from '@/components/ProductCard'
 
 export default function ProductDetailPage() {
   const params = useParams()
@@ -16,6 +19,9 @@ export default function ProductDetailPage() {
   const [quantity, setQuantity] = useState(1)
   const [isAdding, setIsAdding] = useState(false)
   const addItem = useCartStore((state) => state.addItem)
+  const addToWishlist = useWishlistStore((state) => state.addItem)
+  const removeFromWishlist = useWishlistStore((state) => state.removeItem)
+  const isInWishlist = useWishlistStore((state) => state.isInWishlist(productId))
 
   if (!product) {
     return (
@@ -29,6 +35,10 @@ export default function ProductDetailPage() {
     )
   }
 
+  const relatedProducts = product.relatedProducts
+    ? products.filter(p => product.relatedProducts?.includes(p.id))
+    : []
+
   const handleAddToCart = () => {
     setIsAdding(true)
     for (let i = 0; i < quantity; i++) {
@@ -40,6 +50,16 @@ export default function ProductDetailPage() {
       router.push('/cart')
     }, 500)
   }
+
+  const handleWishlist = () => {
+    if (isInWishlist) {
+      removeFromWishlist(productId)
+    } else {
+      addToWishlist(product)
+    }
+  }
+
+  const images = product.images || [product.image]
 
   return (
     <div className="py-12 bg-white">
@@ -54,33 +74,46 @@ export default function ProductDetailPage() {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-          {/* Product Image */}
-          <div className="relative h-96 lg:h-[600px] bg-gray-100 rounded-lg overflow-hidden">
-            <Image
-              src={product.image}
-              alt={product.name}
-              fill
-              className="object-cover"
-              priority
-            />
+          {/* Product Images */}
+          <div>
+            <ImageGallery images={images} productName={product.name} />
           </div>
 
           {/* Product Info */}
           <div>
-            <h1 className="text-3xl md:text-4xl font-serif mb-4">{product.name}</h1>
+            <div className="flex items-start justify-between mb-4">
+              <h1 className="text-3xl md:text-4xl font-serif">{product.name}</h1>
+              <button
+                onClick={handleWishlist}
+                className={`p-3 border-2 rounded-lg transition-colors ${
+                  isInWishlist ? 'border-gold bg-gold text-black' : 'border-gray-300 hover:border-gold'
+                }`}
+                aria-label="Add to wishlist"
+              >
+                <FiHeart className={`w-6 h-6 ${isInWishlist ? 'fill-current' : ''}`} />
+              </button>
+            </div>
             
             <div className="flex items-center gap-4 mb-6">
               <span className="text-3xl font-bold">{formatCurrency(product.price)}</span>
-              {product.inStock ? (
-                <span className="px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm font-medium">
-                  In Stock
-                </span>
-              ) : (
-                <span className="px-3 py-1 bg-red-100 text-red-800 rounded-full text-sm font-medium">
-                  Out of Stock
+              {product.isNew && (
+                <span className="px-3 py-1 bg-gold text-black rounded-full text-sm font-bold">
+                  NEW
                 </span>
               )}
             </div>
+
+            {product.stockCount !== undefined && (
+              <div className="mb-4">
+                {product.stockCount > 5 ? (
+                  <span className="text-green-600 font-medium">In Stock</span>
+                ) : product.stockCount > 0 ? (
+                  <span className="text-orange-600 font-medium">Only {product.stockCount} left in stock!</span>
+                ) : (
+                  <span className="text-red-600 font-medium">Out of Stock</span>
+                )}
+              </div>
+            )}
 
             <div className="mb-6 space-y-3">
               <p className="text-gray-700 leading-relaxed">{product.description}</p>
@@ -109,6 +142,20 @@ export default function ProductDetailPage() {
                 )}
               </div>
             </div>
+
+            {product.videoUrl && (
+              <div className="mb-6">
+                <h3 className="font-semibold mb-2">Product Video</h3>
+                <div className="aspect-video bg-gray-100 rounded-lg overflow-hidden">
+                  <iframe
+                    src={product.videoUrl}
+                    className="w-full h-full"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                  />
+                </div>
+              </div>
+            )}
 
             {/* Quantity Selector */}
             <div className="mb-6">
@@ -167,6 +214,18 @@ export default function ProductDetailPage() {
             </div>
           </div>
         </div>
+
+        {/* Related Products */}
+        {relatedProducts.length > 0 && (
+          <div className="mt-16">
+            <h2 className="text-2xl md:text-3xl font-serif mb-8">You May Also Like</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+              {relatedProducts.map((relatedProduct) => (
+                <ProductCard key={relatedProduct.id} product={relatedProduct} />
+              ))}
+            </div>
+          </div>
+        )}
       </div>
     </div>
   )

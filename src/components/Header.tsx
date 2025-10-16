@@ -3,13 +3,17 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { useState } from 'react'
-import { FiShoppingCart, FiMenu, FiX } from 'react-icons/fi'
+import { FiShoppingCart, FiMenu, FiX, FiHeart } from 'react-icons/fi'
 import { useCartStore } from '@/store/cartStore'
+import { useWishlistStore } from '@/store/wishlistStore'
+import SearchBar from './SearchBar'
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const getItemCount = useCartStore((state) => state.getItemCount)
   const cartCount = getItemCount()
+  const wishlistItems = useWishlistStore((state) => state.items)
+  const wishlistCount = wishlistItems.length
 
   return (
     <header className="bg-white border-b border-gray-200 sticky top-0 z-50 shadow-sm">
@@ -43,8 +47,19 @@ export default function Header() {
             </Link>
           </div>
 
-          {/* Cart & Mobile Menu */}
-          <div className="flex items-center space-x-4">
+          {/* Search, Wishlist, Cart & Mobile Menu */}
+          <div className="flex items-center gap-4">
+            <div className="hidden lg:block">
+              <SearchBar />
+            </div>
+            <Link href="/wishlist" className="relative hidden md:block">
+              <FiHeart className="w-6 h-6 text-black hover:text-gold transition-colors" />
+              {wishlistCount > 0 && (
+                <span className="absolute -top-2 -right-2 bg-gold text-black text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
+                  {wishlistCount}
+                </span>
+              )}
+            </Link>
             <Link href="/cart" className="relative">
               <FiShoppingCart className="w-6 h-6 text-black hover:text-gold transition-colors" />
               {cartCount > 0 && (

@@ -149,7 +149,7 @@ export default function FAQPage() {
         <div className="mt-12 text-center p-8 bg-gray-50 rounded-lg">
           <h3 className="text-2xl font-serif mb-3">Still Have Questions?</h3>
           <p className="text-gray-600 mb-6">
-            We're here to help! Contact us and we'll get back to you as soon as possible.
+            We&apos;re here to help! Contact us and we&apos;ll get back to you as soon as possible.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a

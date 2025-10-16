@@ -21,7 +21,7 @@ export default function ProductDetailPage() {
     return (
       <div className="container-custom py-20 text-center">
         <h1 className="text-3xl font-serif mb-4">Product Not Found</h1>
-        <p className="text-gray-600 mb-6">The product you're looking for doesn't exist.</p>
+        <p className="text-gray-600 mb-6">The product you&apos;re looking for doesn&apos;t exist.</p>
         <Link href="/products" className="btn-primary">
           Back to Shop
         </Link>

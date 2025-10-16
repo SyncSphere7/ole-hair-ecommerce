@@ -24,11 +24,11 @@ export default function AboutPage() {
             </p>
             <p className="text-gray-700 leading-relaxed mb-4">
               We understand that your hair is an important part of your identity and self-expression. 
-              That's why we've dedicated ourselves to sourcing only the finest 100% virgin hair products 
+              That&apos;s why we&apos;ve dedicated ourselves to sourcing only the finest 100% virgin hair products 
               that look natural, feel comfortable, and last.
             </p>
             <p className="text-gray-700 leading-relaxed">
-              Today, we're proud to serve customers across Kampala and beyond, offering a carefully 
+              Today, we&apos;re proud to serve customers across Kampala and beyond, offering a carefully 
               curated selection of wigs and bundles in various styles, lengths, and textures.
             </p>
           </div>
@@ -54,7 +54,7 @@ export default function AboutPage() {
                 </svg>
               </div>
               <h3 className="font-serif text-xl mb-2">Customer Care</h3>
-              <p className="text-gray-600">Your satisfaction is our priority. We're here to support you every step of the way.</p>
+              <p className="text-gray-600">Your satisfaction is our priority. We&apos;re here to support you every step of the way.</p>
             </div>
             <div className="text-center">
               <div className="w-16 h-16 bg-gold rounded-full flex items-center justify-center mx-auto mb-4">
@@ -63,7 +63,7 @@ export default function AboutPage() {
                 </svg>
               </div>
               <h3 className="font-serif text-xl mb-2">Fair Pricing</h3>
-              <p className="text-gray-600">Premium quality doesn't have to break the bank. We offer competitive prices.</p>
+              <p className="text-gray-600">Premium quality doesn&apos;t have to break the bank. We offer competitive prices.</p>
             </div>
           </div>
         </section>

@@ -22,7 +22,7 @@ export default function ConfirmationPage() {
     return (
       <div className="container-custom py-20 text-center">
         <h1 className="text-3xl font-serif mb-4">Order Not Found</h1>
-        <p className="text-gray-600 mb-6">We couldn&apos;t find your order details.</p>
+        <p className="text-gray-600 mb-6">We couldn't find your order details.</p>
         <Link href="/" className="btn-primary">
           Go to Homepage
         </Link>
@@ -31,7 +31,7 @@ export default function ConfirmationPage() {
   }
 
   const whatsappMessage = encodeURIComponent(
-  `Hi Ole Hair! I just placed order #${orderNumber}. I would like to confirm the details.`
+    `Hi Ole Hair! I just placed order #${orderNumber}. I'd like to confirm the details.`
   )
 
   return (

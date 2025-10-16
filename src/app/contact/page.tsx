@@ -77,8 +77,9 @@ export default function ContactPage() {
                 </div>
                 <div>
                   <h3 className="font-semibold mb-1">Location</h3>
-                  <p className="text-gray-700">Kampala, Uganda</p>
-                  <p className="text-sm text-gray-600 mt-1">Pickup available - contact us for exact location</p>
+                  <p className="text-gray-700">At Nailclip Near Acacia Mall</p>
+                  <p className="text-gray-700">Bukoto Street, Opposite Asiatic Sport</p>
+                  <p className="text-sm text-gray-600 mt-1">Kampala, Uganda</p>
                 </div>
               </div>
             </div>

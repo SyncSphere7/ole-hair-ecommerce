@@ -151,7 +151,7 @@ export default function ReturnsPage() {
           <section className="mb-10">
             <h2 className="text-2xl font-serif mb-4">Exchanges</h2>
             <p className="text-gray-700 leading-relaxed mb-4">
-              We&apos;re happy to exchange products of equal value if you receive the wrong item or if there&apos;s 
+              We're happy to exchange products of equal value if you receive the wrong item or if there's 
               a defect. The same conditions apply as returns - the product must be unopened and in original 
               packaging.
             </p>

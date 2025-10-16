@@ -20,9 +20,9 @@ const faqs = [
         a: 'Yes! Since our hair is 100% virgin human hair, you can color, bleach, straighten, or curl it just like your natural hair. We recommend consulting with a professional stylist for best results.'
       },
       {
-        q: 'What is the difference between 4x4 and 5x5 wigs?',
-        a: 'The numbers refer to the size of the lace closure. A 5x5 closure has a larger parting space (5x5 inches) compared to 4x4 (4x4 inches), giving you more styling versatility.'
-      },
+        q: "What's the difference between 4x4 and 5x5 wigs?",
+        a: "The numbers refer to the size of the lace closure. A 5x5 closure has a larger parting space (5x5 inches) compared to 4x4 (4x4 inches), giving you more styling versatility."
+      }
     ]
   },
   {
@@ -43,7 +43,7 @@ const faqs = [
       {
         q: 'Do you offer payment plans?',
         a: 'Currently, we only accept full payment at checkout. However, contact us on WhatsApp to discuss special arrangements.'
-      },
+      }
     ]
   },
   {
@@ -63,8 +63,8 @@ const faqs = [
       },
       {
         q: 'How will I know when my order is ready?',
-        a: 'We will contact you via phone or WhatsApp once your order is ready for pickup or has been dispatched for delivery.'
-      },
+        a: "We'll contact you via phone or WhatsApp once your order is ready for pickup or has been dispatched for delivery."
+      }
     ]
   },
   {
@@ -80,14 +80,14 @@ const faqs = [
       },
       {
         q: 'Can I sleep in my wig?',
-        a: 'We do not recommend sleeping in your wig as it can cause tangling and reduce its lifespan. Always remove and store it properly overnight.'
+        a: "We don't recommend sleeping in your wig as it can cause tangling and reduce its lifespan. Always remove and store it properly overnight."
       },
       {
         q: 'How do I store my wig when not wearing it?',
         a: 'Store your wig on a wig stand or mannequin head in a cool, dry place away from direct sunlight. You can also store it in a silk or satin bag.'
-      },
+      }
     ]
-  },
+  }
 ]
 
 export default function FAQPage() {
@@ -149,7 +149,7 @@ export default function FAQPage() {
         <div className="mt-12 text-center p-8 bg-gray-50 rounded-lg">
           <h3 className="text-2xl font-serif mb-3">Still Have Questions?</h3>
           <p className="text-gray-600 mb-6">
-            We&apos;re here to help! Contact us and we&apos;ll get back to you as soon as possible.
+            We're here to help! Contact us and we'll get back to you as soon as possible.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a

@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import { FaFacebook, FaInstagram, FaTiktok } from 'react-icons/fa'
 
 export default function Footer() {
@@ -8,7 +9,15 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* About */}
           <div>
-            <h3 className="font-serif text-xl mb-4 text-gold">Ole Hair</h3>
+            <Link href="/" className="inline-block mb-4">
+              <Image
+                src="/olehair-big-logo.jpg"
+                alt="Ole Hair"
+                width={100}
+                height={50}
+                className="h-10 w-auto object-contain"
+              />
+            </Link>
             <p className="text-gray-300 text-sm leading-relaxed">
               Premium quality wigs and hair bundles in Kampala, Uganda. Your beauty, our passion.
             </p>
@@ -68,7 +77,7 @@ export default function Footer() {
             <h4 className="font-semibold mb-4 text-gold">Follow Us</h4>
             <div className="flex space-x-4">
               <a
-                href="https://facebook.com/olehair"
+                href="https://www.facebook.com/olehairug"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-gray-300 hover:text-gold transition-colors"
@@ -77,7 +86,7 @@ export default function Footer() {
                 <FaFacebook className="w-6 h-6" />
               </a>
               <a
-                href="https://instagram.com/olehair"
+                href="https://www.instagram.com/olehairug/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-gray-300 hover:text-gold transition-colors"
@@ -86,7 +95,7 @@ export default function Footer() {
                 <FaInstagram className="w-6 h-6" />
               </a>
               <a
-                href="https://tiktok.com/@olehair"
+                href="https://www.tiktok.com/@olehairug"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-gray-300 hover:text-gold transition-colors"

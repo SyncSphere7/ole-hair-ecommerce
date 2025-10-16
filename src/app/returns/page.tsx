@@ -92,7 +92,7 @@ export default function ReturnsPage() {
                 <div>
                   <strong className="block mb-1">Wait for Approval</strong>
                   <span className="text-gray-700">
-                    Our team will review your request and photos. We'll approve or decline the return 
+                    Our team will review your request and photos. We&apos;ll approve or decline the return 
                     based on our policy conditions.
                   </span>
                 </div>
@@ -104,7 +104,7 @@ export default function ReturnsPage() {
                 <div>
                   <strong className="block mb-1">Return the Product</strong>
                   <span className="text-gray-700">
-                    If approved, return the unopened product in its original packaging. We'll provide 
+                    If approved, return the unopened product in its original packaging. We&apos;ll provide 
                     instructions for return delivery or pickup.
                   </span>
                 </div>
@@ -151,7 +151,7 @@ export default function ReturnsPage() {
           <section className="mb-10">
             <h2 className="text-2xl font-serif mb-4">Exchanges</h2>
             <p className="text-gray-700 leading-relaxed mb-4">
-              We're happy to exchange products of equal value if you receive the wrong item or if there's 
+              We&apos;re happy to exchange products of equal value if you receive the wrong item or if there&apos;s 
               a defect. The same conditions apply as returns - the product must be unopened and in original 
               packaging.
             </p>
@@ -164,7 +164,7 @@ export default function ReturnsPage() {
           <section className="mb-10 bg-gray-50 p-6 rounded-lg">
             <h2 className="text-2xl font-serif mb-4">Damaged or Defective Products</h2>
             <p className="text-gray-700 leading-relaxed mb-4">
-              If you receive a damaged or defective product, we sincerely apologize! We'll make it right:
+              If you receive a damaged or defective product, we sincerely apologize! We&apos;ll make it right:
             </p>
             <ul className="space-y-2 text-gray-700">
               <li className="flex gap-2">
@@ -173,7 +173,7 @@ export default function ReturnsPage() {
               </li>
               <li className="flex gap-2">
                 <span className="text-gold">✓</span>
-                <span>We'll arrange immediate pickup and replacement</span>
+                <span>We&apos;ll arrange immediate pickup and replacement</span>
               </li>
               <li className="flex gap-2">
                 <span className="text-gold">✓</span>

@@ -66,7 +66,7 @@ export default function ContactPage() {
                   >
                     info@olehair.com
                   </a>
-                  <p className="text-sm text-gray-600 mt-1">We'll respond within 24 hours</p>
+                  <p className="text-sm text-gray-600 mt-1">We&apos;ll respond within 24 hours</p>
                 </div>
               </div>
 

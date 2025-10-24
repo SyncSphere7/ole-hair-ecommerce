@@ -1,130 +1,183 @@
-# Ole Hair - Premium Wigs & Hair Bundles E-Commerce
+# Supabase CLI
 
-A modern, responsive e-commerce website for Ole Hair, built with Next.js 14, TypeScript, and Tailwind CSS.
+[![Coverage Status](https://coveralls.io/repos/github/supabase/cli/badge.svg?branch=main)](https://coveralls.io/github/supabase/cli?branch=main) [![Bitbucket Pipelines](https://img.shields.io/bitbucket/pipelines/supabase-cli/setup-cli/master?style=flat-square&label=Bitbucket%20Canary)](https://bitbucket.org/supabase-cli/setup-cli/pipelines) [![Gitlab Pipeline Status](https://img.shields.io/gitlab/pipeline-status/sweatybridge%2Fsetup-cli?label=Gitlab%20Canary)
+](https://gitlab.com/sweatybridge/setup-cli/-/pipelines)
 
-## 🚀 Features
+[Supabase](https://supabase.io) is an open source Firebase alternative. We're building the features of Firebase using enterprise-grade open source tools.
 
-- ✨ Modern, clean UI with gold/black/white color scheme
-- 📱 Fully responsive (mobile-first design)
-- 🛒 Shopping cart with persistent state
-- 💳 Pesapal payment integration (MTN, Airtel, Visa/Mastercard)
-- 🚚 Delivery options (pickup or delivery)
-- 💬 WhatsApp integration for customer support
-- 🔍 Product filtering by category, price, and length
-- 📦 PWA support (installable as app)
-- ⚡ Fast performance with Next.js
-- 🎨 Custom fonts (Playfair Display + Inter)
+This repository contains all the functionality for Supabase CLI.
 
-## 📋 Pages
+- [x] Running Supabase locally
+- [x] Managing database migrations
+- [x] Creating and deploying Supabase Functions
+- [x] Generating types directly from your database schema
+- [x] Making authenticated HTTP requests to [Management API](https://supabase.com/docs/reference/api/introduction)
 
-- **Home** - Hero section, featured products, why choose us
-- **Products** - Catalog with filtering
-- **Product Detail** - Individual product pages
-- **Cart** - Shopping cart management
-- **Checkout** - Order form with delivery and payment options
-- **Confirmation** - Order confirmation with WhatsApp support
-- **About** - Company information
-- **Contact** - Contact form and info
-- **FAQ** - Frequently asked questions
-- **Returns** - Returns and refund policy
+## Getting started
 
-## 🛠️ Tech Stack
+### Install the CLI
 
-- **Framework:** Next.js 14 (App Router)
-- **Language:** TypeScript
-- **Styling:** Tailwind CSS
-- **State Management:** Zustand
-- **Icons:** React Icons
-- **PWA:** next-pwa
-
-## 📦 Installation
-
-1. Install dependencies:
-```bash
-npm install
-```
-
-2. Run the development server:
-```bash
-npm run dev
-```
-
-3. Open [http://localhost:3000](http://localhost:3000)
-
-## 🏗️ Build for Production
+Available via [NPM](https://www.npmjs.com) as dev dependency. To install:
 
 ```bash
-npm run build
-npm start
+npm i supabase --save-dev
 ```
 
-## 🎨 Customization
+To install the beta release channel:
 
-### Colors
-Edit `tailwind.config.ts` to change the color scheme:
-- Primary: `#FFCC00` (gold)
-- Secondary: `#000000` (black)
-- Background: `#FFFFFF` (white)
+```bash
+npm i supabase@beta --save-dev
+```
 
-### Products
-Update product data in `src/data/products.ts`
+When installing with yarn 4, you need to disable experimental fetch with the following nodejs config.
 
-### Contact Info
-- WhatsApp: +256 758 774 233
-- Update in multiple files (search for phone number)
+```
+NODE_OPTIONS=--no-experimental-fetch yarn add supabase
+```
 
-### Logo
-- Main logo: `public/olehair-big-logo.jpg`
-- PWA icons: `public/icons/` (generate from logo)
+> **Note**
+For Bun versions below v1.0.17, you must add `supabase` as a [trusted dependency](https://bun.sh/guides/install/trusted) before running `bun add -D supabase`.
 
-## 🔧 Pesapal Integration
+<details>
+  <summary><b>macOS</b></summary>
 
-The checkout page is ready for Pesapal integration. To complete:
+  Available via [Homebrew](https://brew.sh). To install:
 
-1. Get Pesapal API credentials from [pesapal.com](https://www.pesapal.com)
-2. Add environment variables:
-   ```
-   NEXT_PUBLIC_PESAPAL_CONSUMER_KEY=your_key
-   NEXT_PUBLIC_PESAPAL_CONSUMER_SECRET=your_secret
-   ```
-3. Implement Pesapal API calls in `/src/app/checkout/page.tsx`
+  ```sh
+  brew install supabase/tap/supabase
+  ```
 
-## 📱 PWA Icons
+  To install the beta release channel:
+  
+  ```sh
+  brew install supabase/tap/supabase-beta
+  brew link --overwrite supabase-beta
+  ```
+  
+  To upgrade:
 
-Generate PWA icons from your logo:
-1. Use a tool like [realfavicongenerator.net](https://realfavicongenerator.net/)
-2. Upload your logo
-3. Download icons and place in `public/icons/`
+  ```sh
+  brew upgrade supabase
+  ```
+</details>
 
-## 🌐 Deployment
+<details>
+  <summary><b>Windows</b></summary>
 
-### Vercel (Recommended)
-1. Push to GitHub
-2. Import to Vercel
-3. Deploy automatically
+  Available via [Scoop](https://scoop.sh). To install:
 
-### Other Platforms
-- Build: `npm run build`
-- Output: `.next` folder
-- Follow platform-specific Next.js deployment guides
+  ```powershell
+  scoop bucket add supabase https://github.com/supabase/scoop-bucket.git
+  scoop install supabase
+  ```
 
-## 📝 To-Do
+  To upgrade:
 
-- [ ] Add Pesapal API integration
-- [ ] Generate PWA icons from logo
-- [ ] Add real product images
-- [ ] Set up email notifications
-- [ ] Add Google Analytics
-- [ ] Add social media links
-- [ ] Implement product search
-- [ ] Add customer reviews
+  ```powershell
+  scoop update supabase
+  ```
+</details>
 
-## 🤝 Support
+<details>
+  <summary><b>Linux</b></summary>
 
-For questions or support, contact:
-- WhatsApp: +256 758 774 233
-- Email: info@olehair.com
+  Available via [Homebrew](https://brew.sh) and Linux packages.
 
-## 📄 License
+  #### via Homebrew
 
-Copyright © 2025 Ole Hair. All rights reserved.
+  To install:
+
+  ```sh
+  brew install supabase/tap/supabase
+  ```
+
+  To upgrade:
+
+  ```sh
+  brew upgrade supabase
+  ```
+
+  #### via Linux packages
+
+  Linux packages are provided in [Releases](https://github.com/supabase/cli/releases). To install, download the `.apk`/`.deb`/`.rpm`/`.pkg.tar.zst` file depending on your package manager and run the respective commands.
+
+  ```sh
+  sudo apk add --allow-untrusted <...>.apk
+  ```
+
+  ```sh
+  sudo dpkg -i <...>.deb
+  ```
+
+  ```sh
+  sudo rpm -i <...>.rpm
+  ```
+
+  ```sh
+  sudo pacman -U <...>.pkg.tar.zst
+  ```
+</details>
+
+<details>
+  <summary><b>Other Platforms</b></summary>
+
+  You can also install the CLI via [go modules](https://go.dev/ref/mod#go-install) without the help of package managers.
+
+  ```sh
+  go install github.com/supabase/cli@latest
+  ```
+
+  Add a symlink to the binary in `$PATH` for easier access:
+
+  ```sh
+  ln -s "$(go env GOPATH)/bin/cli" /usr/bin/supabase
+  ```
+
+  This works on other non-standard Linux distros.
+</details>
+
+<details>
+  <summary><b>Community Maintained Packages</b></summary>
+
+  Available via [pkgx](https://pkgx.sh/). Package script [here](https://github.com/pkgxdev/pantry/blob/main/projects/supabase.com/cli/package.yml).
+  To install in your working directory:
+
+  ```bash
+  pkgx install supabase
+  ```
+
+  Available via [Nixpkgs](https://nixos.org/). Package script [here](https://github.com/NixOS/nixpkgs/blob/master/pkgs/development/tools/supabase-cli/default.nix).
+</details>
+
+### Run the CLI
+
+```bash
+supabase bootstrap
+```
+
+Or using npx:
+
+```bash
+npx supabase bootstrap
+```
+
+The bootstrap command will guide you through the process of setting up a Supabase project using one of the [starter](https://github.com/supabase-community/supabase-samples/blob/main/samples.json) templates.
+
+## Docs
+
+Command & config reference can be found [here](https://supabase.com/docs/reference/cli/about).
+
+## Breaking changes
+
+We follow semantic versioning for changes that directly impact CLI commands, flags, and configurations.
+
+However, due to dependencies on other service images, we cannot guarantee that schema migrations, seed.sql, and generated types will always work for the same CLI major version. If you need such guarantees, we encourage you to pin a specific version of CLI in package.json.
+
+## Developing
+
+To run from source:
+
+```sh
+# Go >= 1.22
+go run . help
+```

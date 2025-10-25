@@ -63,6 +63,11 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
+                <Link href="/privacy-policy" className="text-gray-300 hover:text-gold transition-colors">
+                  Privacy Policy
+                </Link>
+              </li>
+              <li>
                 <a
                   href="https://wa.me/256758774233"
                   target="_blank"

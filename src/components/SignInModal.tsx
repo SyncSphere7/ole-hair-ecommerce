@@ -2,7 +2,7 @@
 
 import { signIn } from 'next-auth/react'
 import { FaGoogle, FaFacebook, FaGithub, FaTimes } from 'react-icons/fa'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 interface SignInModalProps {
   isOpen: boolean
@@ -10,6 +10,7 @@ interface SignInModalProps {
 }
 
 export default function SignInModal({ isOpen, onClose }: SignInModalProps) {
+  const [email, setEmail] = useState('');
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden'
@@ -30,6 +31,15 @@ export default function SignInModal({ isOpen, onClose }: SignInModalProps) {
       console.error('Sign in error:', error)
     }
   }
+
+  const handleEmailSignIn = async (e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+      await signIn('resend', { email, callbackUrl: '/' });
+    } catch (error) {
+      console.error('Email sign in error:', error);
+    }
+  };
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
@@ -70,15 +80,32 @@ export default function SignInModal({ isOpen, onClose }: SignInModalProps) {
             <FaFacebook className="h-5 w-5 text-blue-600" />
             Continue with Facebook
           </button>
-
-          <button
-            onClick={() => handleSignIn('github')}
-            className="flex w-full items-center justify-center gap-3 rounded-lg border-2 border-gray-200 bg-white px-6 py-3 font-semibold text-gray-700 transition-all hover:border-gold-500 hover:bg-gold-50"
-          >
-            <FaGithub className="h-5 w-5 text-gray-800" />
-            Continue with GitHub
-          </button>
         </div>
+
+        {/* Divider */}
+        <div className="my-6 flex items-center">
+          <div className="flex-1 border-t border-gray-300"></div>
+          <span className="px-4 text-sm text-gray-500">or</span>
+          <div className="flex-1 border-t border-gray-300"></div>
+        </div>
+
+        {/* Email Sign In Form */}
+        <form onSubmit={handleEmailSignIn} className="space-y-4">
+          <input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="Enter your email"
+            className="w-full rounded-lg border-2 border-gray-200 px-4 py-3 focus:border-gold-500 focus:outline-none"
+            required
+          />
+          <button
+            type="submit"
+            className="flex w-full items-center justify-center gap-3 rounded-lg bg-black px-6 py-3 font-semibold text-white transition-all hover:bg-gray-800"
+          >
+            Sign in with Email
+          </button>
+        </form>
 
         {/* Divider */}
         <div className="my-6 flex items-center">

@@ -6,6 +6,7 @@ import { Product } from '@/types'
 import { formatCurrency } from '@/lib/utils'
 import { useCartStore } from '@/store/cartStore'
 import { useWishlistStore } from '@/store/wishlistStore'
+import { useCurrencyStore } from '@/store/currencyStore'
 import { useState } from 'react'
 import { FiHeart, FiEye, FiShoppingCart } from 'react-icons/fi'
 import QuickViewModal from './QuickViewModal'
@@ -21,6 +22,7 @@ export default function ProductCard({ product }: ProductCardProps) {
   const addToWishlist = useWishlistStore((state) => state.addItem)
   const removeFromWishlist = useWishlistStore((state) => state.removeItem)
   const isInWishlist = useWishlistStore((state) => state.isInWishlist(product.id))
+  const { formatPrice } = useCurrencyStore()
 
   const handleAddToCart = (e: React.MouseEvent) => {
     e.preventDefault()
@@ -110,7 +112,7 @@ export default function ProductCard({ product }: ProductCardProps) {
             {product.description}
           </p>
           <div className="flex items-center justify-between">
-            <span className="text-xl font-bold">{formatCurrency(product.price)}</span>
+            <span className="text-xl font-bold">{formatPrice(product.price)}</span>
             <button
               onClick={handleAddToCart}
               disabled={!product.inStock || isAdding}

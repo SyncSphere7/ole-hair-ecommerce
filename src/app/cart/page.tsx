@@ -4,6 +4,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { useCartStore } from '@/store/cartStore'
 import { formatCurrency } from '@/lib/utils'
+import { useCurrencyStore } from '@/store/currencyStore'
 import { FiTrash2 } from 'react-icons/fi'
 
 export default function CartPage() {
@@ -11,6 +12,7 @@ export default function CartPage() {
   const removeItem = useCartStore((state) => state.removeItem)
   const updateQuantity = useCartStore((state) => state.updateQuantity)
   const getTotal = useCartStore((state) => state.getTotal)
+  const { formatPrice } = useCurrencyStore()
   const total = getTotal()
 
   if (items.length === 0) {
@@ -59,7 +61,7 @@ export default function CartPage() {
                     {item.size && `Size: ${item.size}`}
                     {item.length && `Length: ${item.length}`}
                   </p>
-                  <p className="font-bold">{formatCurrency(item.price)}</p>
+                  <p className="font-bold">{formatPrice(item.price)}</p>
                 </div>
 
                 <div className="flex flex-col items-end justify-between">
@@ -87,7 +89,7 @@ export default function CartPage() {
                     </button>
                   </div>
 
-                  <p className="font-bold text-lg">{formatCurrency(item.price * item.quantity)}</p>
+                  <p className="font-bold text-lg">{formatPrice(item.price * item.quantity)}</p>
                 </div>
               </div>
             ))}
@@ -101,7 +103,7 @@ export default function CartPage() {
               <div className="space-y-3 mb-6">
                 <div className="flex justify-between text-gray-700">
                   <span>Subtotal ({items.reduce((sum, item) => sum + item.quantity, 0)} items)</span>
-                  <span>{formatCurrency(total)}</span>
+                  <span>{formatPrice(total)}</span>
                 </div>
                 <div className="flex justify-between text-sm text-gray-600">
                   <span>Delivery</span>
@@ -112,7 +114,7 @@ export default function CartPage() {
               <div className="border-t border-gray-300 pt-4 mb-6">
                 <div className="flex justify-between text-xl font-bold">
                   <span>Total</span>
-                  <span>{formatCurrency(total)}</span>
+                  <span>{formatPrice(total)}</span>
                 </div>
               </div>
 

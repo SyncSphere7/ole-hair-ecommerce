@@ -29,6 +29,9 @@ export const metadata: Metadata = {
     statusBarStyle: 'default',
     title: 'Ole Hair',
   },
+  other: {
+    'mobile-web-app-capable': 'yes',
+  },
   openGraph: {
     title: 'Ole Hair - Premium Wigs & Hair Bundles',
     description: 'Shop premium quality wigs and hair bundles in Kampala, Uganda',

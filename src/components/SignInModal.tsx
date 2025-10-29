@@ -53,16 +53,24 @@ export default function SignInModal({ isOpen, onClose }: SignInModalProps) {
     setIsLoading(true)
     setMessage('')
     try {
-      const result = await signIn('resend', { 
-        email, 
-        callbackUrl: '/',
-        redirect: false 
+      const response = await fetch('/api/auth/magic-link-send', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email,
+          callbackUrl: '/',
+        }),
       })
-      if (result?.error) {
-        setMessage('Failed to send email. Please check your email address.')
-      } else {
+      
+      const data = await response.json()
+      
+      if (response.ok) {
         setMessage('Check your email for a sign-in link!')
         setEmail('')
+      } else {
+        setMessage(data.error || 'Failed to send email. Please try again.')
       }
     } catch (error) {
       console.error('Email sign in error:', error)
@@ -132,9 +140,7 @@ export default function SignInModal({ isOpen, onClose }: SignInModalProps) {
           </button>
         </div>
 
-        {/* Email sign-in is disabled for now - can be enabled by adding Resend API key */}
-        {/* Uncomment below when you add AUTH_RESEND_KEY to .env.local */}
-        {/*
+        {/* Email Magic Link - Custom implementation with Resend */}
         <div className="my-6 flex items-center">
           <div className="flex-1 border-t border-gray-300"></div>
           <span className="px-4 text-sm text-gray-500">or</span>
@@ -160,7 +166,6 @@ export default function SignInModal({ isOpen, onClose }: SignInModalProps) {
             {isLoading ? 'Sending...' : 'Sign in with Email'}
           </button>
         </form>
-        */}
 
         {/* Divider */}
         <div className="my-6 flex items-center">

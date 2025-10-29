@@ -9,6 +9,7 @@ import { useCartStore } from '@/store/cartStore'
 import { useWishlistStore } from '@/store/wishlistStore'
 import SearchBar from './SearchBar'
 import SignInModal from './SignInModal'
+import CurrencySelector from './CurrencySelector'
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
@@ -52,10 +53,13 @@ export default function Header() {
             </Link>
           </div>
 
-          {/* Search, Wishlist, Cart & Mobile Menu */}
+          {/* Search, Currency, Wishlist, Cart & Mobile Menu */}
           <div className="flex items-center gap-4">
             <div className="hidden lg:block">
               <SearchBar />
+            </div>
+            <div className="hidden md:block">
+              <CurrencySelector compact />
             </div>
             <Link href="/wishlist" className="relative hidden md:block">
               <FiHeart className="w-6 h-6 text-black hover:text-gold transition-colors" />

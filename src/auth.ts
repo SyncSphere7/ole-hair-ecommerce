@@ -23,40 +23,9 @@ if (process.env.FACEBOOK_CLIENT_ID && process.env.FACEBOOK_CLIENT_SECRET) {
   }))
 }
 
-// Email Magic Link (Resend)
-if (process.env.AUTH_RESEND_KEY) {
-  providers.push(Resend({
-    apiKey: process.env.AUTH_RESEND_KEY,
-    from: 'noreply@olehair.com',
-    async sendVerificationRequest({ identifier: email, url }) {
-      try {
-        const { Resend } = await import('resend')
-        const resend = new Resend(process.env.AUTH_RESEND_KEY)
-        
-        await resend.emails.send({
-          from: 'Ole Hair <noreply@olehair.com>',
-          to: email,
-          subject: 'Sign in to Ole Hair',
-          html: `
-            <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-              <h2 style="color: #FFCC00;">Welcome to Ole Hair!</h2>
-              <p>Click the link below to sign in to your account:</p>
-              <a href="${url}" style="background: #FFCC00; color: black; padding: 12px 24px; text-decoration: none; border-radius: 6px; display: inline-block; font-weight: bold;">
-                Sign In
-              </a>
-              <p style="margin-top: 20px; color: #666;">
-                If you didn't request this email, you can safely ignore it.
-              </p>
-            </div>
-          `,
-        })
-      } catch (error) {
-        console.error('Failed to send email:', error)
-        throw new Error('Failed to send verification email')
-      }
-    },
-  }))
-}
+// Note: Email magic links require a database adapter
+// For now, we'll focus on OAuth providers which work without a database
+// To enable email auth, you would need to set up Supabase or another database adapter
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers,

@@ -79,6 +79,30 @@ export default function AuthTestPage() {
             >
               {isLoading ? 'Loading...' : 'Sign in with Google'}
             </button>
+            
+            <div className="border-t pt-3">
+              <p className="text-sm text-gray-600 mb-2">Email Magic Link:</p>
+              <form onSubmit={(e) => {
+                e.preventDefault()
+                const email = (e.target as any).email.value
+                handleSignIn('resend')
+              }} className="space-y-2">
+                <input
+                  name="email"
+                  type="email"
+                  placeholder="Enter your email"
+                  className="w-full px-3 py-2 border rounded-lg"
+                  required
+                />
+                <button
+                  type="submit"
+                  disabled={isLoading}
+                  className="w-full bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 disabled:opacity-50"
+                >
+                  {isLoading ? 'Loading...' : 'Send Magic Link'}
+                </button>
+              </form>
+            </div>
           </div>
         ) : (
           <button

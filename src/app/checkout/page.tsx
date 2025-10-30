@@ -76,7 +76,7 @@ export default function CheckoutPage() {
             {/* Customer Information */}
             <div className="bg-white rounded-lg p-6 shadow-sm">
               <h2 className="text-2xl font-serif mb-4">Contact Information</h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-semibold mb-2">Full Name *</label>
                   <input
@@ -192,10 +192,10 @@ export default function CheckoutPage() {
                     onChange={(e) => setPaymentMethod(e.target.value as 'mtn')}
                   />
                   <div className="flex-grow">
-                    <p className="font-semibold">MTN Mobile Money</p>
+                    <p className="font-semibold text-sm sm:text-base">MTN Mobile Money</p>
                   </div>
-                  <div className="w-12 h-8 flex items-center justify-center">
-                    <svg viewBox="0 0 48 32" className="w-12 h-8">
+                  <div className="w-10 h-6 sm:w-12 sm:h-8 flex items-center justify-center flex-shrink-0">
+                    <svg viewBox="0 0 48 32" className="w-full h-full">
                       <rect width="48" height="32" rx="4" fill="#FFCC00"/>
                       <text x="24" y="20" textAnchor="middle" fontSize="12" fontWeight="bold" fill="#000">MTN</text>
                     </svg>
@@ -211,10 +211,10 @@ export default function CheckoutPage() {
                     onChange={(e) => setPaymentMethod(e.target.value as 'airtel')}
                   />
                   <div className="flex-grow">
-                    <p className="font-semibold">Airtel Money</p>
+                    <p className="font-semibold text-sm sm:text-base">Airtel Money</p>
                   </div>
-                  <div className="w-16 h-8 flex items-center justify-center">
-                    <svg viewBox="0 0 64 32" className="w-16 h-8">
+                  <div className="w-12 h-6 sm:w-16 sm:h-8 flex items-center justify-center flex-shrink-0">
+                    <svg viewBox="0 0 64 32" className="w-full h-full">
                       <rect width="64" height="32" rx="4" fill="#E60012"/>
                       <text x="32" y="20" textAnchor="middle" fontSize="11" fontWeight="bold" fill="#FFF">airtel</text>
                     </svg>
@@ -230,16 +230,16 @@ export default function CheckoutPage() {
                     onChange={(e) => setPaymentMethod(e.target.value as 'card')}
                   />
                   <div className="flex-grow">
-                    <p className="font-semibold">Visa / Mastercard</p>
+                    <p className="font-semibold text-sm sm:text-base">Visa / Mastercard</p>
                   </div>
-                  <div className="flex gap-2">
+                  <div className="flex gap-1 sm:gap-2 flex-shrink-0">
                     {/* Visa Logo */}
-                    <svg viewBox="0 0 48 30" className="w-12 h-7">
+                    <svg viewBox="0 0 48 30" className="w-8 h-5 sm:w-12 sm:h-7">
                       <rect width="48" height="30" rx="4" fill="#1A1F71"/>
                       <text x="24" y="19" textAnchor="middle" fontSize="12" fontWeight="bold" fill="#FFF" fontFamily="Arial, sans-serif">VISA</text>
                     </svg>
                     {/* Mastercard Logo */}
-                    <svg viewBox="0 0 48 30" className="w-12 h-7">
+                    <svg viewBox="0 0 48 30" className="w-8 h-5 sm:w-12 sm:h-7">
                       <rect width="48" height="30" rx="4" fill="#FFF" stroke="#E5E5E5"/>
                       <circle cx="18" cy="15" r="7" fill="#EB001B"/>
                       <circle cx="30" cy="15" r="7" fill="#F79E1B"/>

@@ -8,14 +8,31 @@ import Image from 'next/image'
 import { FiPackage, FiClock, FiCheckCircle, FiTruck, FiEye, FiShoppingBag } from 'react-icons/fi'
 import { useCurrencyStore } from '@/store/currencyStore'
 
-// Real orders will come from your database/order system
-// For now, no orders exist until real orders are placed
+// TypeScript interfaces for order data
+interface OrderItem {
+  id: string
+  name: string
+  price: number
+  quantity: number
+  image: string
+}
+
+interface Order {
+  id: string
+  orderNumber: string
+  date: string
+  status: 'processing' | 'shipped' | 'delivered'
+  total: number
+  items: OrderItem[]
+  deliveryMethod: 'pickup' | 'delivery'
+  deliveryAddress: string
+}
 
 export default function OrdersPage() {
   const { data: session, status } = useSession()
   const router = useRouter()
   const { formatPrice } = useCurrencyStore()
-  const [orders, setOrders] = useState([]) // Real orders will be loaded from database
+  const [orders, setOrders] = useState<Order[]>([]) // Real orders will be loaded from database
 
   useEffect(() => {
     if (status === 'loading') return

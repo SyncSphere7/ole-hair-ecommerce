@@ -29,6 +29,7 @@ if (process.env.FACEBOOK_CLIENT_ID && process.env.FACEBOOK_CLIENT_SECRET) {
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers,
+  trustHost: true, // Trust the host header for production
   callbacks: {
     async signIn({ user, account, profile }) {
       if (!user.email) return false

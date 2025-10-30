@@ -1,11 +1,12 @@
 import { Resend } from 'resend'
 
-const resend = new Resend(process.env.AUTH_RESEND_KEY)
-
 export async function sendMagicLink(email: string, callbackUrl: string = '/') {
   if (!process.env.AUTH_RESEND_KEY) {
     throw new Error('Resend API key not configured')
   }
+
+  // Initialize Resend only when needed
+  const resend = new Resend(process.env.AUTH_RESEND_KEY)
 
   // Generate a simple token (in production, use crypto.randomBytes)
   const token = Buffer.from(`${email}:${Date.now()}`).toString('base64url')

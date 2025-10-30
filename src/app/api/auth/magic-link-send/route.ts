@@ -3,6 +3,14 @@ import { sendMagicLink } from '@/lib/magic-link'
 
 export async function POST(request: NextRequest) {
   try {
+    // Check if Resend is configured
+    if (!process.env.AUTH_RESEND_KEY) {
+      return NextResponse.json(
+        { error: 'Email service not configured. Please use social login instead.' },
+        { status: 503 }
+      )
+    }
+
     const { email, callbackUrl } = await request.json()
     
     if (!email || !email.includes('@')) {
@@ -20,8 +28,17 @@ export async function POST(request: NextRequest) {
     })
   } catch (error) {
     console.error('Magic link send error:', error)
+    
+    // Handle specific Resend API errors
+    if (error instanceof Error && error.message.includes('API key')) {
+      return NextResponse.json(
+        { error: 'Email service not properly configured. Please use social login instead.' },
+        { status: 503 }
+      )
+    }
+    
     return NextResponse.json(
-      { error: 'Failed to send magic link. Please try again.' },
+      { error: 'Failed to send magic link. Please try again or use social login.' },
       { status: 500 }
     )
   }

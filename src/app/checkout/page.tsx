@@ -194,8 +194,11 @@ export default function CheckoutPage() {
                   <div className="flex-grow">
                     <p className="font-semibold">MTN Mobile Money</p>
                   </div>
-                  <div className="w-12 h-8 bg-yellow-400 rounded flex items-center justify-center text-xs font-bold">
-                    MTN
+                  <div className="w-12 h-8 flex items-center justify-center">
+                    <svg viewBox="0 0 48 32" className="w-12 h-8">
+                      <rect width="48" height="32" rx="4" fill="#FFCC00"/>
+                      <text x="24" y="20" textAnchor="middle" fontSize="12" fontWeight="bold" fill="#000">MTN</text>
+                    </svg>
                   </div>
                 </label>
 
@@ -210,8 +213,11 @@ export default function CheckoutPage() {
                   <div className="flex-grow">
                     <p className="font-semibold">Airtel Money</p>
                   </div>
-                  <div className="w-12 h-8 bg-red-600 rounded flex items-center justify-center text-xs font-bold text-white">
-                    Airtel
+                  <div className="w-16 h-8 flex items-center justify-center">
+                    <svg viewBox="0 0 64 32" className="w-16 h-8">
+                      <rect width="64" height="32" rx="4" fill="#E60012"/>
+                      <text x="32" y="20" textAnchor="middle" fontSize="11" fontWeight="bold" fill="#FFF">airtel</text>
+                    </svg>
                   </div>
                 </label>
 
@@ -226,9 +232,19 @@ export default function CheckoutPage() {
                   <div className="flex-grow">
                     <p className="font-semibold">Visa / Mastercard</p>
                   </div>
-                  <div className="flex gap-1">
-                    <div className="w-8 h-6 bg-blue-600 rounded text-xs text-white flex items-center justify-center font-bold">V</div>
-                    <div className="w-8 h-6 bg-red-600 rounded text-xs text-white flex items-center justify-center font-bold">M</div>
+                  <div className="flex gap-2">
+                    {/* Visa Logo */}
+                    <svg viewBox="0 0 40 24" className="w-10 h-6">
+                      <rect width="40" height="24" rx="3" fill="#1A1F71"/>
+                      <text x="20" y="15" textAnchor="middle" fontSize="8" fontWeight="bold" fill="#FFF">VISA</text>
+                    </svg>
+                    {/* Mastercard Logo */}
+                    <svg viewBox="0 0 40 24" className="w-10 h-6">
+                      <rect width="40" height="24" rx="3" fill="#FFF" stroke="#DDD"/>
+                      <circle cx="14" cy="12" r="5" fill="#EB001B"/>
+                      <circle cx="26" cy="12" r="5" fill="#F79E1B"/>
+                      <path d="M20 8 A5 5 0 0 1 20 16 A5 5 0 0 1 20 8" fill="#FF5F00"/>
+                    </svg>
                   </div>
                 </label>
               </div>

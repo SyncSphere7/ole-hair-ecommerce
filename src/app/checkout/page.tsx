@@ -234,16 +234,16 @@ export default function CheckoutPage() {
                   </div>
                   <div className="flex gap-2">
                     {/* Visa Logo */}
-                    <svg viewBox="0 0 40 24" className="w-10 h-6">
-                      <rect width="40" height="24" rx="3" fill="#1A1F71"/>
-                      <text x="20" y="15" textAnchor="middle" fontSize="8" fontWeight="bold" fill="#FFF">VISA</text>
+                    <svg viewBox="0 0 48 30" className="w-12 h-7">
+                      <rect width="48" height="30" rx="4" fill="#1A1F71"/>
+                      <text x="24" y="19" textAnchor="middle" fontSize="12" fontWeight="bold" fill="#FFF" fontFamily="Arial, sans-serif">VISA</text>
                     </svg>
                     {/* Mastercard Logo */}
-                    <svg viewBox="0 0 40 24" className="w-10 h-6">
-                      <rect width="40" height="24" rx="3" fill="#FFF" stroke="#DDD"/>
-                      <circle cx="14" cy="12" r="5" fill="#EB001B"/>
-                      <circle cx="26" cy="12" r="5" fill="#F79E1B"/>
-                      <path d="M20 8 A5 5 0 0 1 20 16 A5 5 0 0 1 20 8" fill="#FF5F00"/>
+                    <svg viewBox="0 0 48 30" className="w-12 h-7">
+                      <rect width="48" height="30" rx="4" fill="#FFF" stroke="#E5E5E5"/>
+                      <circle cx="18" cy="15" r="7" fill="#EB001B"/>
+                      <circle cx="30" cy="15" r="7" fill="#F79E1B"/>
+                      <path d="M24 10.5c1.5 1.2 2.5 3 2.5 4.5s-1 3.3-2.5 4.5c-1.5-1.2-2.5-3-2.5-4.5s1-3.3 2.5-4.5z" fill="#FF5F00"/>
                     </svg>
                   </div>
                 </label>

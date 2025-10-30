@@ -16,8 +16,7 @@ export default function Header() {
   const [signInModalOpen, setSignInModalOpen] = useState(false)
   const [userMenuOpen, setUserMenuOpen] = useState(false)
   const { data: session, status } = useSession()
-  const getItemCount = useCartStore((state) => state.getItemCount)
-  const cartCount = getItemCount()
+  const cartCount = useCartStore((state) => state.getItemCount())
   const wishlistItems = useWishlistStore((state) => state.items)
   const wishlistCount = wishlistItems.length
 

@@ -8,76 +8,14 @@ import Image from 'next/image'
 import { FiPackage, FiClock, FiCheckCircle, FiTruck, FiEye, FiShoppingBag } from 'react-icons/fi'
 import { useCurrencyStore } from '@/store/currencyStore'
 
-// Mock order data - in production this would come from your database
-const mockOrders = [
-  {
-    id: 'OH202410291',
-    orderNumber: 'OH202410291',
-    date: '2024-10-29',
-    status: 'delivered',
-    total: 400000,
-    items: [
-      {
-        id: '1',
-        name: '5x5 Bob Wig',
-        price: 400000,
-        quantity: 1,
-        image: '/images/placeholder-wig-1.svg'
-      }
-    ],
-    deliveryMethod: 'delivery',
-    deliveryAddress: 'Kampala, Uganda'
-  },
-  {
-    id: 'OH202410282',
-    orderNumber: 'OH202410282',
-    date: '2024-10-28',
-    status: 'processing',
-    total: 302000,
-    items: [
-      {
-        id: '3',
-        name: '14-inch Hair Bundle',
-        price: 130000,
-        quantity: 1,
-        image: '/images/placeholder-bundle-1.svg'
-      },
-      {
-        id: '4',
-        name: '10-inch Hair Bundle',
-        price: 172000,
-        quantity: 1,
-        image: '/images/placeholder-bundle-2.svg'
-      }
-    ],
-    deliveryMethod: 'pickup',
-    deliveryAddress: 'Store Pickup'
-  },
-  {
-    id: 'OH202410273',
-    orderNumber: 'OH202410273',
-    date: '2024-10-27',
-    status: 'shipped',
-    total: 220000,
-    items: [
-      {
-        id: '7',
-        name: 'Pixie Wig',
-        price: 220000,
-        quantity: 1,
-        image: '/images/placeholder-wig-3.svg'
-      }
-    ],
-    deliveryMethod: 'delivery',
-    deliveryAddress: 'Kampala, Uganda'
-  }
-]
+// Real orders will come from your database/order system
+// For now, no orders exist until real orders are placed
 
 export default function OrdersPage() {
   const { data: session, status } = useSession()
   const router = useRouter()
   const { formatPrice } = useCurrencyStore()
-  const [orders, setOrders] = useState(mockOrders)
+  const [orders, setOrders] = useState([]) // Real orders will be loaded from database
 
   useEffect(() => {
     if (status === 'loading') return

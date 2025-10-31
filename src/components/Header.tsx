@@ -7,6 +7,7 @@ import { FiShoppingCart, FiMenu, FiX, FiHeart, FiUser, FiLogOut } from 'react-ic
 import { useSession, signOut } from 'next-auth/react'
 import { useCartStore } from '@/store/cartStore'
 import { useWishlistStore } from '@/store/wishlistStore'
+import SearchBar from './SearchBar'
 import SignInModal from './SignInModal'
 import CurrencySelector from './CurrencySelector'
 import ThemeToggle from './ThemeToggle'
@@ -54,7 +55,9 @@ export default function Header() {
 
           {/* Search, Currency, Wishlist, Cart & Mobile Menu */}
           <div className="flex items-center gap-4">
-            {/* SearchBar removed */}
+            <div className="hidden lg:block">
+              <SearchBar />
+            </div>
             <div className="hidden md:block">
               <CurrencySelector compact />
             </div>

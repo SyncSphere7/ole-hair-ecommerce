@@ -6,11 +6,12 @@ import Image from 'next/image'
 import { FiSearch, FiX } from 'react-icons/fi'
 import { products } from '@/data/products'
 import { useCurrencyStore } from '@/store/currencyStore'
+import { Product } from '@/types'
 
 export default function SearchBar() {
   const [query, setQuery] = useState('')
   const [isOpen, setIsOpen] = useState(false)
-  const [results, setResults] = useState([])
+  const [results, setResults] = useState<Product[]>([])
   const [selectedIndex, setSelectedIndex] = useState(-1)
   const searchRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)

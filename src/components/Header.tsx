@@ -10,6 +10,7 @@ import { useWishlistStore } from '@/store/wishlistStore'
 import SearchBar from './SearchBar'
 import SignInModal from './SignInModal'
 import CurrencySelector from './CurrencySelector'
+import ThemeToggle from './ThemeToggle'
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
@@ -21,7 +22,7 @@ export default function Header() {
   const wishlistCount = wishlistItems.length
 
   return (
-    <header className="bg-white border-b border-gray-200 sticky top-0 z-50 shadow-sm">
+    <header className="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 sticky top-0 z-50 shadow-sm transition-colors">
       <nav className="container-custom py-4">
         <div className="flex items-center justify-between">
           {/* Logo */}
@@ -38,16 +39,16 @@ export default function Header() {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
-            <Link href="/" className="text-black hover:text-gold transition-colors font-medium">
+            <Link href="/" className="text-black dark:text-white hover:text-gold transition-colors font-medium">
               Home
             </Link>
-            <Link href="/products" className="text-black hover:text-gold transition-colors font-medium">
+            <Link href="/products" className="text-black dark:text-white hover:text-gold transition-colors font-medium">
               Shop
             </Link>
-            <Link href="/about" className="text-black hover:text-gold transition-colors font-medium">
+            <Link href="/about" className="text-black dark:text-white hover:text-gold transition-colors font-medium">
               About
             </Link>
-            <Link href="/contact" className="text-black hover:text-gold transition-colors font-medium">
+            <Link href="/contact" className="text-black dark:text-white hover:text-gold transition-colors font-medium">
               Contact
             </Link>
           </div>
@@ -60,8 +61,11 @@ export default function Header() {
             <div className="hidden md:block">
               <CurrencySelector compact />
             </div>
+            <div className="hidden sm:block">
+              <ThemeToggle compact />
+            </div>
             <Link href="/wishlist" className="relative hidden md:block">
-              <FiHeart className="w-6 h-6 text-black hover:text-gold transition-colors" />
+              <FiHeart className="w-6 h-6 text-black dark:text-white hover:text-gold transition-colors" />
               {wishlistCount > 0 && (
                 <span className="absolute -top-2 -right-2 bg-gold text-black text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
                   {wishlistCount}
@@ -69,7 +73,7 @@ export default function Header() {
               )}
             </Link>
             <Link href="/cart" className="relative">
-              <FiShoppingCart className="w-6 h-6 text-black hover:text-gold transition-colors" />
+              <FiShoppingCart className="w-6 h-6 text-black dark:text-white hover:text-gold transition-colors" />
               {cartCount > 0 && (
                 <span className="absolute -top-2 -right-2 bg-gold text-black text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
                   {cartCount}
@@ -103,21 +107,21 @@ export default function Header() {
                 
                 {/* User Dropdown Menu */}
                 {userMenuOpen && (
-                  <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-50">
-                    <div className="px-4 py-2 border-b border-gray-200">
-                      <p className="font-semibold text-sm">{session.user.name}</p>
-                      <p className="text-xs text-gray-500 truncate">{session.user.email}</p>
+                  <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 py-2 z-50">
+                    <div className="px-4 py-2 border-b border-gray-200 dark:border-gray-700">
+                      <p className="font-semibold text-sm text-black dark:text-white">{session.user.name}</p>
+                      <p className="text-xs text-gray-500 dark:text-gray-400 truncate">{session.user.email}</p>
                     </div>
                     <Link
                       href="/profile"
-                      className="block px-4 py-2 text-sm hover:bg-gray-100 transition-colors"
+                      className="block px-4 py-2 text-sm text-black dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
                       onClick={() => setUserMenuOpen(false)}
                     >
                       My Profile
                     </Link>
                     <Link
                       href="/orders"
-                      className="block px-4 py-2 text-sm hover:bg-gray-100 transition-colors"
+                      className="block px-4 py-2 text-sm text-black dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
                       onClick={() => setUserMenuOpen(false)}
                     >
                       Order History
@@ -127,7 +131,7 @@ export default function Header() {
                         setUserMenuOpen(false)
                         signOut()
                       }}
-                      className="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100 transition-colors flex items-center gap-2"
+                      className="w-full text-left px-4 py-2 text-sm text-red-600 dark:text-red-400 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors flex items-center gap-2"
                     >
                       <FiLogOut className="w-4 h-4" />
                       Sign Out
@@ -148,7 +152,7 @@ export default function Header() {
             {/* Mobile Menu Button */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="md:hidden text-black"
+              className="md:hidden text-black dark:text-white"
               aria-label="Toggle menu"
             >
               {mobileMenuOpen ? <FiX className="w-6 h-6" /> : <FiMenu className="w-6 h-6" />}
@@ -158,35 +162,40 @@ export default function Header() {
 
         {/* Mobile Menu */}
         {mobileMenuOpen && (
-          <div className="md:hidden mt-4 pb-4 space-y-4 border-t border-gray-200 pt-4">
+          <div className="md:hidden mt-4 pb-4 space-y-4 border-t border-gray-200 dark:border-gray-700 pt-4">
             <Link
               href="/"
-              className="block text-black hover:text-gold transition-colors font-medium"
+              className="block text-black dark:text-white hover:text-gold transition-colors font-medium"
               onClick={() => setMobileMenuOpen(false)}
             >
               Home
             </Link>
             <Link
               href="/products"
-              className="block text-black hover:text-gold transition-colors font-medium"
+              className="block text-black dark:text-white hover:text-gold transition-colors font-medium"
               onClick={() => setMobileMenuOpen(false)}
             >
               Shop
             </Link>
             <Link
               href="/about"
-              className="block text-black hover:text-gold transition-colors font-medium"
+              className="block text-black dark:text-white hover:text-gold transition-colors font-medium"
               onClick={() => setMobileMenuOpen(false)}
             >
               About
             </Link>
             <Link
               href="/contact"
-              className="block text-black hover:text-gold transition-colors font-medium"
+              className="block text-black dark:text-white hover:text-gold transition-colors font-medium"
               onClick={() => setMobileMenuOpen(false)}
             >
               Contact
             </Link>
+            
+            {/* Mobile Theme Toggle */}
+            <div className="sm:hidden pt-2">
+              <ThemeToggle />
+            </div>
             
             {/* Mobile Sign In */}
             {!session?.user && (
@@ -204,7 +213,7 @@ export default function Header() {
             
             {/* Mobile User Info */}
             {session?.user && (
-              <div className="border-t border-gray-200 pt-4 mt-2">
+              <div className="border-t border-gray-200 dark:border-gray-700 pt-4 mt-2">
                 <div className="flex items-center gap-3 mb-3">
                   {session.user.image ? (
                     <Image
@@ -220,20 +229,20 @@ export default function Header() {
                     </div>
                   )}
                   <div>
-                    <p className="font-semibold text-sm">{session.user.name}</p>
-                    <p className="text-xs text-gray-500">{session.user.email}</p>
+                    <p className="font-semibold text-sm text-black dark:text-white">{session.user.name}</p>
+                    <p className="text-xs text-gray-500 dark:text-gray-400">{session.user.email}</p>
                   </div>
                 </div>
                 <Link
                   href="/profile"
-                  className="block py-2 text-sm hover:text-gold transition-colors"
+                  className="block py-2 text-sm text-black dark:text-white hover:text-gold transition-colors"
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   My Profile
                 </Link>
                 <Link
                   href="/orders"
-                  className="block py-2 text-sm hover:text-gold transition-colors"
+                  className="block py-2 text-sm text-black dark:text-white hover:text-gold transition-colors"
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   Order History
@@ -243,7 +252,7 @@ export default function Header() {
                     setMobileMenuOpen(false)
                     signOut()
                   }}
-                  className="flex items-center gap-2 py-2 text-sm text-red-600 hover:text-red-700 transition-colors"
+                  className="flex items-center gap-2 py-2 text-sm text-red-600 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300 transition-colors"
                 >
                   <FiLogOut className="w-4 h-4" />
                   Sign Out

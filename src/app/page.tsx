@@ -10,16 +10,16 @@ export default function Home() {
   return (
     <>
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-gray-50 to-white py-20 md:py-32">
+      <section className="relative bg-gradient-to-br from-gray-50 to-white dark:from-gray-800 dark:to-gray-900 py-20 md:py-32 transition-colors">
         <div className="container-custom">
           <div className="max-w-3xl mx-auto text-center">
-            <h1 className="text-4xl md:text-6xl font-serif mb-4 text-black leading-tight">
+            <h1 className="text-4xl md:text-6xl font-serif mb-4 text-black dark:text-white leading-tight transition-colors">
               Premium Wigs & Hair Bundles
             </h1>
             <p className="text-xl md:text-2xl text-gold font-semibold mb-6 italic">
               Quality over Quantity
             </p>
-            <p className="text-lg md:text-xl text-gray-700 mb-8 leading-relaxed">
+            <p className="text-lg md:text-xl text-gray-700 dark:text-gray-300 mb-8 leading-relaxed transition-colors">
               Discover our collection of high-quality wigs and virgin hair bundles. 
               Elevate your style with elegance and confidence.
             </p>
@@ -36,7 +36,7 @@ export default function Home() {
       </section>
 
       {/* Featured Products */}
-      <section className="py-16 bg-white">
+      <section className="py-16 bg-white dark:bg-gray-900 transition-colors">
         <div className="container-custom">
           <h2 className="section-heading">Featured Products</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
@@ -53,7 +53,7 @@ export default function Home() {
       </section>
 
       {/* Why Choose Us */}
-      <section className="py-16 bg-gray-50">
+      <section className="py-16 bg-gray-50 dark:bg-gray-800 transition-colors">
         <div className="container-custom">
           <h2 className="section-heading">Why Choose Ole Hair</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">

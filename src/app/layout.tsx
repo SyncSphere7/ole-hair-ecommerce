@@ -6,6 +6,7 @@ import Footer from '@/components/Footer'
 import WhatsAppButton from '@/components/WhatsAppButton'
 import PWAInstallPrompt from '@/components/PWAInstallPrompt'
 import SessionProvider from '@/components/SessionProvider'
+import ThemeProvider from '@/components/ThemeProvider'
 
 const playfair = Playfair_Display({ 
   subsets: ['latin'],
@@ -58,16 +59,18 @@ export default function RootLayout({
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
       </head>
-      <body className="font-sans bg-white text-black">
-        <SessionProvider>
-          <Header />
-          <main className="min-h-screen">
-            {children}
-          </main>
-          <Footer />
-          <WhatsAppButton />
-          <PWAInstallPrompt />
-        </SessionProvider>
+      <body className="font-sans bg-white dark:bg-gray-900 text-black dark:text-white transition-colors">
+        <ThemeProvider>
+          <SessionProvider>
+            <Header />
+            <main className="min-h-screen">
+              {children}
+            </main>
+            <Footer />
+            <WhatsAppButton />
+            <PWAInstallPrompt />
+          </SessionProvider>
+        </ThemeProvider>
       </body>
     </html>
   )

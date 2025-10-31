@@ -11,7 +11,7 @@ import { Product } from '@/types'
 export default function SearchBar() {
   const [query, setQuery] = useState('')
   const [isOpen, setIsOpen] = useState(false)
-  const [results, setResults] = useState<Product[]>(() => products.slice(0, 4))
+  const [results, setResults] = useState<Product[]>(products.slice(0, 4))
   const searchRef = useRef<HTMLDivElement>(null)
   const router = useRouter()
 

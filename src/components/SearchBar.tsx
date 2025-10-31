@@ -9,9 +9,10 @@ import { formatCurrency } from '@/lib/utils'
 import { Product } from '@/types'
 
 export default function SearchBar() {
-  const [query, setQuery] = useState('')
-  const [isOpen, setIsOpen] = useState(false)
+  const [query, setQuery] = useState<string>('')
+  const [isOpen, setIsOpen] = useState<boolean>(false)
   const [results, setResults] = useState<Product[]>(products.slice(0, 4))
+  const [selectedIndex, setSelectedIndex] = useState<number>(-1)
   const searchRef = useRef<HTMLDivElement>(null)
   const router = useRouter()
 

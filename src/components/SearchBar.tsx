@@ -6,11 +6,12 @@ import Link from 'next/link'
 import { FiSearch, FiX } from 'react-icons/fi'
 import { products } from '@/data/products'
 import { formatCurrency } from '@/lib/utils'
+import { Product } from '@/types'
 
 export default function SearchBar() {
   const [query, setQuery] = useState('')
   const [isOpen, setIsOpen] = useState(false)
-  const [results, setResults] = useState(() => products.slice(0, 4))
+  const [results, setResults] = useState<Product[]>(() => products.slice(0, 4))
   const searchRef = useRef<HTMLDivElement>(null)
   const router = useRouter()
 

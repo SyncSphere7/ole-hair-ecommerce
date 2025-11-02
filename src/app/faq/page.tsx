@@ -98,30 +98,30 @@ export default function FAQPage() {
   }
 
   return (
-    <div className="py-12 bg-white">
+    <div className="py-12 bg-white dark:bg-gray-900 min-h-screen transition-colors">
       <div className="container-custom max-w-4xl">
         <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-5xl font-serif mb-6">Frequently Asked Questions</h1>
-          <p className="text-xl text-gray-700">
+          <h1 className="text-4xl md:text-5xl font-serif mb-6 text-black dark:text-white transition-colors">Frequently Asked Questions</h1>
+          <p className="text-xl text-gray-700 dark:text-gray-300 transition-colors">
             Find answers to common questions about our products and services.
           </p>
         </div>
 
         {faqs.map((category, catIndex) => (
           <div key={catIndex} className="mb-10">
-            <h2 className="text-2xl font-serif mb-6 text-gold">{category.category}</h2>
+            <h2 className="text-2xl font-serif mb-6 text-gold transition-colors">{category.category}</h2>
             <div className="space-y-4">
               {category.questions.map((faq, qIndex) => {
                 const key = `${catIndex}-${qIndex}`
                 const isOpen = openIndex === key
 
                 return (
-                  <div key={key} className="border border-gray-200 rounded-lg overflow-hidden">
+                  <div key={key} className="border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden bg-white dark:bg-gray-800 transition-colors">
                     <button
                       onClick={() => toggleQuestion(key)}
-                      className="w-full flex justify-between items-center p-5 text-left hover:bg-gray-50 transition-colors"
+                      className="w-full flex justify-between items-center p-5 text-left hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
                     >
-                      <span className="font-semibold pr-4">{faq.q}</span>
+                      <span className="font-semibold pr-4 text-black dark:text-white">{faq.q}</span>
                       <svg
                         className={`w-5 h-5 text-gold flex-shrink-0 transition-transform ${
                           isOpen ? 'transform rotate-180' : ''
@@ -134,7 +134,7 @@ export default function FAQPage() {
                       </svg>
                     </button>
                     {isOpen && (
-                      <div className="px-5 pb-5 text-gray-700 leading-relaxed">
+                      <div className="px-5 pb-5 text-gray-700 dark:text-gray-300 leading-relaxed transition-colors">
                         {faq.a}
                       </div>
                     )}
@@ -146,9 +146,9 @@ export default function FAQPage() {
         ))}
 
         {/* Still have questions */}
-        <div className="mt-12 text-center p-8 bg-gray-50 rounded-lg">
-          <h3 className="text-2xl font-serif mb-3">Still Have Questions?</h3>
-          <p className="text-gray-600 mb-6">
+        <div className="mt-12 text-center p-8 bg-gray-50 dark:bg-gray-800 rounded-lg transition-colors">
+          <h3 className="text-2xl font-serif mb-3 text-black dark:text-white transition-colors">Still Have Questions?</h3>
+          <p className="text-gray-600 dark:text-gray-400 mb-6 transition-colors">
             We're here to help! Contact us and we'll get back to you as soon as possible.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">

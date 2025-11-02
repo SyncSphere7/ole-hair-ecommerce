@@ -5,6 +5,7 @@ import { useRouter, useSearchParams } from 'next/navigation'
 import { useSession } from 'next-auth/react'
 import Link from 'next/link'
 
+// Magic link success page with session detection
 function MagicSuccessContent() {
   const router = useRouter()
   const searchParams = useSearchParams()

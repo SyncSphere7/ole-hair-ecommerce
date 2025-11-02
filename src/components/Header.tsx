@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import Image from 'next/image'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { FiShoppingCart, FiMenu, FiX, FiHeart, FiUser, FiLogOut } from 'react-icons/fi'
 import { useSession, signOut } from 'next-auth/react'
 import { useCartStore } from '@/store/cartStore'
@@ -16,10 +16,16 @@ export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [signInModalOpen, setSignInModalOpen] = useState(false)
   const [userMenuOpen, setUserMenuOpen] = useState(false)
+  const [mounted, setMounted] = useState(false)
   const { data: session, status } = useSession()
   const cartCount = useCartStore((state) => state.getItemCount())
   const wishlistItems = useWishlistStore((state) => state.items)
   const wishlistCount = wishlistItems.length
+
+  // Prevent hydration mismatch by only showing counts after mounting
+  useEffect(() => {
+    setMounted(true)
+  }, [])
 
   return (
     <header className="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 sticky top-0 z-50 shadow-sm transition-colors">
@@ -66,7 +72,7 @@ export default function Header() {
             </div>
             <Link href="/wishlist" className="relative hidden md:block">
               <FiHeart className="w-6 h-6 text-black dark:text-white hover:text-gold transition-colors" />
-              {wishlistCount > 0 && (
+              {mounted && wishlistCount > 0 && (
                 <span className="absolute -top-2 -right-2 bg-gold text-black text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
                   {wishlistCount}
                 </span>
@@ -74,7 +80,7 @@ export default function Header() {
             </Link>
             <Link href="/cart" className="relative">
               <FiShoppingCart className="w-6 h-6 text-black dark:text-white hover:text-gold transition-colors" />
-              {cartCount > 0 && (
+              {mounted && cartCount > 0 && (
                 <span className="absolute -top-2 -right-2 bg-gold text-black text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
                   {cartCount}
                 </span>

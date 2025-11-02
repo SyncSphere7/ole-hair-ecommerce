@@ -2,6 +2,7 @@
 
 import { signIn } from 'next-auth/react'
 import { FaGoogle, FaFacebook, FaTimes, FaEnvelope } from 'react-icons/fa'
+import { FiX } from 'react-icons/fi'
 import { useEffect, useState } from 'react'
 
 interface SignInModalProps {
@@ -85,24 +86,23 @@ export default function SignInModal({ isOpen, onClose }: SignInModalProps) {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
-      <div className="relative w-full max-w-md rounded-lg bg-white p-8 shadow-2xl mx-4">
-        {/* Close button */}
+            <div className="relative w-full max-w-md rounded-lg bg-white dark:bg-gray-800 p-8 shadow-2xl mx-4 transition-colors">
+        {/* Close Button */}
         <button
           onClick={onClose}
-          className="absolute right-4 top-4 text-gray-400 hover:text-gray-600 transition-colors"
+          className="absolute right-4 top-4 text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
           aria-label="Close"
-          disabled={isLoading}
         >
-          <FaTimes className="h-6 w-6" />
+          <FiX className="w-6 h-6" />
         </button>
 
-        {/* Header */}
-        <div className="mb-8 text-center">
-          <h2 className="font-serif text-3xl font-bold text-black mb-2">
-            Welcome Back
+        {/* Logo/Icon */}
+        <div className="text-center mb-6">
+          <h2 className="font-serif text-3xl font-bold text-black dark:text-white mb-2 transition-colors">
+            Sign In
           </h2>
-          <p className="text-gray-600">
-            Sign in to track orders, save your wishlist, and checkout faster
+          <p className="text-gray-600 dark:text-gray-400 transition-colors">
+            Sign in to access your wishlist and track orders
           </p>
         </div>
 
@@ -123,9 +123,9 @@ export default function SignInModal({ isOpen, onClose }: SignInModalProps) {
           <button
             onClick={() => handleSignIn('facebook')}
             disabled={isLoading}
-            className="flex w-full items-center justify-center gap-3 rounded-lg border-2 border-gray-200 bg-white px-6 py-3 font-semibold text-gray-700 transition-all hover:border-gold hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="flex w-full items-center justify-center gap-3 rounded-lg border-2 border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 px-6 py-3 font-semibold text-gray-700 dark:text-gray-300 transition-all hover:border-gold hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            <FaFacebook className="h-5 w-5 text-blue-600" />
+            <FaFacebook className="h-5 w-5 text-blue-600 dark:text-blue-400" />
             {isLoading ? 'Signing in...' : 'Continue with Facebook'}
           </button>
 
@@ -133,18 +133,18 @@ export default function SignInModal({ isOpen, onClose }: SignInModalProps) {
           <button
             onClick={() => handleSignIn('google')}
             disabled={isLoading}
-            className="flex w-full items-center justify-center gap-3 rounded-lg border-2 border-gray-200 bg-white px-6 py-3 font-semibold text-gray-700 transition-all hover:border-gold hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="flex w-full items-center justify-center gap-3 rounded-lg border-2 border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 px-6 py-3 font-semibold text-gray-700 dark:text-gray-300 transition-all hover:border-gold hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            <FaGoogle className="h-5 w-5 text-red-500" />
+            <FaGoogle className="h-5 w-5 text-red-500 dark:text-red-400" />
             {isLoading ? 'Signing in...' : 'Continue with Google'}
           </button>
         </div>
 
         {/* Email Magic Link - Custom implementation with Resend */}
         <div className="my-6 flex items-center">
-          <div className="flex-1 border-t border-gray-300"></div>
-          <span className="px-4 text-sm text-gray-500">or</span>
-          <div className="flex-1 border-t border-gray-300"></div>
+          <div className="flex-1 border-t border-gray-300 dark:border-gray-600"></div>
+          <span className="px-4 text-sm text-gray-500 dark:text-gray-400">or</span>
+          <div className="flex-1 border-t border-gray-300 dark:border-gray-600"></div>
         </div>
 
         <form onSubmit={handleEmailSignIn} className="space-y-4">
@@ -153,14 +153,14 @@ export default function SignInModal({ isOpen, onClose }: SignInModalProps) {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="Enter your email"
-            className="w-full rounded-lg border-2 border-gray-200 px-4 py-3 focus:border-gold focus:outline-none"
+            className="w-full rounded-lg border-2 border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 text-black dark:text-white px-4 py-3 focus:border-gold focus:outline-none transition-colors placeholder-gray-500 dark:placeholder-gray-400"
             required
             disabled={isLoading}
           />
           <button
             type="submit"
             disabled={isLoading || !email}
-            className="flex w-full items-center justify-center gap-3 rounded-lg bg-black px-6 py-3 font-semibold text-white transition-all hover:bg-gray-800 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="flex w-full items-center justify-center gap-3 rounded-lg bg-black dark:bg-gray-700 px-6 py-3 font-semibold text-white transition-all hover:bg-gray-800 dark:hover:bg-gray-600 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             <FaEnvelope className="h-4 w-4" />
             {isLoading ? 'Sending...' : 'Sign in with Email'}
@@ -169,9 +169,9 @@ export default function SignInModal({ isOpen, onClose }: SignInModalProps) {
 
         {/* Divider */}
         <div className="my-6 flex items-center">
-          <div className="flex-1 border-t border-gray-300"></div>
-          <span className="px-4 text-sm text-gray-500">or</span>
-          <div className="flex-1 border-t border-gray-300"></div>
+          <div className="flex-1 border-t border-gray-300 dark:border-gray-600"></div>
+          <span className="px-4 text-sm text-gray-500 dark:text-gray-400">or</span>
+          <div className="flex-1 border-t border-gray-300 dark:border-gray-600"></div>
         </div>
 
         {/* Guest Checkout */}
@@ -184,7 +184,7 @@ export default function SignInModal({ isOpen, onClose }: SignInModalProps) {
         </button>
 
         {/* Terms */}
-        <p className="mt-6 text-center text-xs text-gray-500">
+        <p className="mt-6 text-center text-xs text-gray-500 dark:text-gray-400">
           By continuing, you agree to our Terms of Service and Privacy Policy
         </p>
       </div>

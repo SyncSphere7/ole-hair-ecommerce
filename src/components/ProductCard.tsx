@@ -50,9 +50,9 @@ export default function ProductCard({ product }: ProductCardProps) {
 
   return (
     <>
-      <div className="group bg-white border border-gray-200 rounded-lg overflow-hidden hover:shadow-lg transition-shadow duration-300">
+      <div className="group bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden hover:shadow-lg transition-shadow duration-300">
         <Link href={`/products/${product.id}`}>
-          <div className="relative h-64 bg-gray-100 overflow-hidden">
+          <div className="relative h-64 bg-gray-100 dark:bg-gray-700 overflow-hidden">
             <Image
               src={product.image}
               alt={product.name}
@@ -79,7 +79,7 @@ export default function ProductCard({ product }: ProductCardProps) {
               <button
                 onClick={handleWishlist}
                 className={`p-2 rounded-full shadow-lg transition-colors ${
-                  isInWishlist ? 'bg-gold text-black' : 'bg-white text-black hover:bg-gold'
+                  isInWishlist ? 'bg-gold text-black' : 'bg-white dark:bg-gray-800 text-black dark:text-white hover:bg-gold dark:hover:bg-gold'
                 }`}
                 aria-label="Add to wishlist"
               >
@@ -87,7 +87,7 @@ export default function ProductCard({ product }: ProductCardProps) {
               </button>
               <button
                 onClick={handleQuickView}
-                className="p-2 bg-white rounded-full shadow-lg hover:bg-gold transition-colors"
+                className="p-2 bg-white dark:bg-gray-800 text-black dark:text-white rounded-full shadow-lg hover:bg-gold dark:hover:bg-gold transition-colors"
                 aria-label="Quick view"
               >
                 <FiEye className="w-5 h-5" />
@@ -104,15 +104,15 @@ export default function ProductCard({ product }: ProductCardProps) {
         
         <div className="p-4">
           <Link href={`/products/${product.id}`}>
-            <h3 className="font-serif text-lg mb-2 group-hover:text-gold transition-colors">
+            <h3 className="font-serif text-lg mb-2 text-black dark:text-white group-hover:text-gold transition-colors">
               {product.name}
             </h3>
           </Link>
-          <p className="text-gray-600 text-sm mb-3 line-clamp-2">
+          <p className="text-gray-600 dark:text-gray-400 text-sm mb-3 line-clamp-2">
             {product.description}
           </p>
           <div className="flex items-center justify-between">
-            <span className="text-xl font-bold">{formatPrice(product.price)}</span>
+            <span className="text-xl font-bold text-black dark:text-white">{formatPrice(product.price)}</span>
             <button
               onClick={handleAddToCart}
               disabled={!product.inStock || isAdding}

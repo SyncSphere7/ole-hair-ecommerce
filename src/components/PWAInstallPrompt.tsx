@@ -42,22 +42,25 @@ export default function PWAInstallPrompt() {
   if (!showPrompt) return null
 
   return (
-    <div className="fixed bottom-4 left-4 right-4 md:left-auto md:right-4 md:w-96 bg-white border-2 border-gold rounded-lg shadow-2xl p-4 z-50 animate-slide-up">
+        <div className="fixed bottom-4 left-4 right-4 md:left-auto md:right-4 md:w-96 bg-white dark:bg-gray-800 border-2 border-gold rounded-lg shadow-2xl p-4 z-50 animate-slide-up transition-colors">
+      {/* Close Button */}
       <button
         onClick={handleDismiss}
-        className="absolute top-2 right-2 text-gray-400 hover:text-gray-600"
+        className="absolute top-2 right-2 text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300"
         aria-label="Dismiss"
       >
         <FiX className="w-5 h-5" />
       </button>
-      
-      <div className="flex items-start gap-3">
-        <div className="w-12 h-12 bg-gold rounded-lg flex items-center justify-center flex-shrink-0">
-          <FiDownload className="w-6 h-6 text-black" />
+
+      {/* Content */}
+      <div className="flex gap-4">
+        <div className="flex-shrink-0">
+          <FiDownload className="w-6 h-6 text-black dark:text-white" />
         </div>
-        <div className="flex-grow">
-          <h3 className="font-serif text-lg mb-1">Install Ole Hair App</h3>
-          <p className="text-sm text-gray-600 mb-3">
+
+        <div className="flex-1">
+          <h3 className="font-serif text-lg mb-1 text-black dark:text-white transition-colors">Install Ole Hair App</h3>
+          <p className="text-sm text-gray-600 dark:text-gray-400 mb-3 transition-colors">
             Get quick access and a better shopping experience!
           </p>
           <button
@@ -71,3 +74,4 @@ export default function PWAInstallPrompt() {
     </div>
   )
 }
+

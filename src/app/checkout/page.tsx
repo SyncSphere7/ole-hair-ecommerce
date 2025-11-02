@@ -66,19 +66,19 @@ export default function CheckoutPage() {
   }
 
   return (
-    <div className="py-12 bg-gray-50">
+    <div className="py-12 bg-gray-50 dark:bg-gray-900 transition-colors">
       <div className="container-custom">
-        <h1 className="text-3xl md:text-4xl font-serif mb-8 text-center">Checkout</h1>
+        <h1 className="text-3xl md:text-4xl font-serif mb-8 text-center text-black dark:text-white transition-colors">Checkout</h1>
 
         <form onSubmit={handleSubmit} className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Checkout Form */}
           <div className="lg:col-span-2 space-y-6">
             {/* Customer Information */}
-            <div className="bg-white rounded-lg p-6 shadow-sm">
-              <h2 className="text-2xl font-serif mb-4">Contact Information</h2>
+            <div className="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-sm transition-colors">
+              <h2 className="text-2xl font-serif mb-4 text-black dark:text-white transition-colors">Contact Information</h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-semibold mb-2">Full Name *</label>
+                  <label className="block text-sm font-semibold mb-2 text-gray-700 dark:text-gray-300 transition-colors">Full Name *</label>
                   <input
                     type="text"
                     required
@@ -89,7 +89,7 @@ export default function CheckoutPage() {
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-semibold mb-2">Phone Number *</label>
+                  <label className="block text-sm font-semibold mb-2 text-gray-700 dark:text-gray-300 transition-colors">Phone Number *</label>
                   <input
                     type="tel"
                     required
@@ -100,7 +100,7 @@ export default function CheckoutPage() {
                   />
                 </div>
                 <div className="md:col-span-2">
-                  <label className="block text-sm font-semibold mb-2">Email Address *</label>
+                  <label className="block text-sm font-semibold mb-2 text-gray-700 dark:text-gray-300 transition-colors">Email Address *</label>
                   <input
                     type="email"
                     required
@@ -114,10 +114,10 @@ export default function CheckoutPage() {
             </div>
 
             {/* Delivery Method */}
-            <div className="bg-white rounded-lg p-6 shadow-sm">
-              <h2 className="text-2xl font-serif mb-4">Delivery Method</h2>
+            <div className="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-sm transition-colors">
+              <h2 className="text-2xl font-serif mb-4 text-black dark:text-white transition-colors">Delivery Method</h2>
               <div className="space-y-3">
-                <label className="flex items-start gap-3 p-4 border-2 border-gray-200 rounded-lg cursor-pointer hover:border-gold transition-colors">
+                <label className="flex items-start gap-3 p-4 border-2 border-gray-200 dark:border-gray-600 rounded-lg cursor-pointer hover:border-gold transition-colors">
                   <input
                     type="radio"
                     name="delivery"
@@ -127,13 +127,13 @@ export default function CheckoutPage() {
                     className="mt-1"
                   />
                   <div className="flex-grow">
-                    <p className="font-semibold">Free Pickup</p>
-                    <p className="text-sm text-gray-600">Pick up your order in Kampala</p>
+                    <p className="font-semibold text-black dark:text-white transition-colors">Free Pickup</p>
+                    <p className="text-sm text-gray-600 dark:text-gray-400 transition-colors">Pick up your order in Kampala</p>
                   </div>
                   <span className="font-bold text-gold">FREE</span>
                 </label>
 
-                <label className="flex items-start gap-3 p-4 border-2 border-gray-200 rounded-lg cursor-pointer hover:border-gold transition-colors">
+                <label className="flex items-start gap-3 p-4 border-2 border-gray-200 dark:border-gray-600 rounded-lg cursor-pointer hover:border-gold transition-colors">
                   <input
                     type="radio"
                     name="delivery"
@@ -143,17 +143,17 @@ export default function CheckoutPage() {
                     className="mt-1"
                   />
                   <div className="flex-grow">
-                    <p className="font-semibold">Home Delivery</p>
-                    <p className="text-sm text-gray-600">Delivery within Kampala (1-2 days)</p>
+                    <p className="font-semibold text-black dark:text-white transition-colors">Home Delivery</p>
+                    <p className="text-sm text-gray-600 dark:text-gray-400 transition-colors">Delivery within Kampala (1-2 days)</p>
                   </div>
-                  <span className="font-bold">{formatCurrency(DELIVERY_FEE)}</span>
+                  <span className="font-bold text-black dark:text-white transition-colors">{formatCurrency(DELIVERY_FEE)}</span>
                 </label>
               </div>
 
               {deliveryMethod === 'delivery' && (
                 <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="md:col-span-2">
-                    <label className="block text-sm font-semibold mb-2">Delivery Address *</label>
+                    <label className="block text-sm font-semibold mb-2 text-gray-700 dark:text-gray-300 transition-colors">Delivery Address *</label>
                     <input
                       type="text"
                       required
@@ -164,7 +164,7 @@ export default function CheckoutPage() {
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-semibold mb-2">City *</label>
+                    <label className="block text-sm font-semibold mb-2 text-gray-700 dark:text-gray-300 transition-colors">City *</label>
                     <input
                       type="text"
                       required
@@ -179,11 +179,11 @@ export default function CheckoutPage() {
             </div>
 
             {/* Payment Method */}
-            <div className="bg-white rounded-lg p-6 shadow-sm">
-              <h2 className="text-2xl font-serif mb-4">Payment Method</h2>
+            <div className="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-sm transition-colors">
+              <h2 className="text-2xl font-serif mb-4 text-black dark:text-white transition-colors">Payment Method</h2>
               
               <div className="space-y-3 mb-4">
-                <label className="flex items-center gap-3 p-4 border-2 border-gray-200 rounded-lg cursor-pointer hover:border-gold transition-colors">
+                <label className="flex items-center gap-3 p-4 border-2 border-gray-200 dark:border-gray-600 rounded-lg cursor-pointer hover:border-gold transition-colors">
                   <input
                     type="radio"
                     name="payment"
@@ -192,7 +192,7 @@ export default function CheckoutPage() {
                     onChange={(e) => setPaymentMethod(e.target.value as 'mtn')}
                   />
                   <div className="flex-grow">
-                    <p className="font-semibold text-sm sm:text-base">MTN Mobile Money</p>
+                    <p className="font-semibold text-sm sm:text-base text-black dark:text-white transition-colors">MTN Mobile Money</p>
                   </div>
                   <div className="w-10 h-6 sm:w-12 sm:h-8 flex items-center justify-center flex-shrink-0">
                     <svg viewBox="0 0 48 32" className="w-full h-full">
@@ -202,7 +202,7 @@ export default function CheckoutPage() {
                   </div>
                 </label>
 
-                <label className="flex items-center gap-3 p-4 border-2 border-gray-200 rounded-lg cursor-pointer hover:border-gold transition-colors">
+                <label className="flex items-center gap-3 p-4 border-2 border-gray-200 dark:border-gray-600 rounded-lg cursor-pointer hover:border-gold transition-colors">
                   <input
                     type="radio"
                     name="payment"
@@ -211,7 +211,7 @@ export default function CheckoutPage() {
                     onChange={(e) => setPaymentMethod(e.target.value as 'airtel')}
                   />
                   <div className="flex-grow">
-                    <p className="font-semibold text-sm sm:text-base">Airtel Money</p>
+                    <p className="font-semibold text-sm sm:text-base text-black dark:text-white transition-colors">Airtel Money</p>
                   </div>
                   <div className="w-12 h-6 sm:w-16 sm:h-8 flex items-center justify-center flex-shrink-0">
                     <svg viewBox="0 0 64 32" className="w-full h-full">
@@ -221,7 +221,7 @@ export default function CheckoutPage() {
                   </div>
                 </label>
 
-                <label className="flex items-center gap-3 p-4 border-2 border-gray-200 rounded-lg cursor-pointer hover:border-gold transition-colors">
+                <label className="flex items-center gap-3 p-4 border-2 border-gray-200 dark:border-gray-600 rounded-lg cursor-pointer hover:border-gold transition-colors">
                   <input
                     type="radio"
                     name="payment"
@@ -230,7 +230,7 @@ export default function CheckoutPage() {
                     onChange={(e) => setPaymentMethod(e.target.value as 'card')}
                   />
                   <div className="flex-grow">
-                    <p className="font-semibold text-sm sm:text-base">Visa / Mastercard</p>
+                    <p className="font-semibold text-sm sm:text-base text-black dark:text-white transition-colors">Visa / Mastercard</p>
                   </div>
                   <div className="flex gap-1 sm:gap-2 flex-shrink-0">
                     {/* Visa Logo */}
@@ -251,7 +251,7 @@ export default function CheckoutPage() {
 
               {(paymentMethod === 'mtn' || paymentMethod === 'airtel') && (
                 <div>
-                  <label className="block text-sm font-semibold mb-2">
+                  <label className="block text-sm font-semibold mb-2 text-gray-700 dark:text-gray-300 transition-colors">
                     {paymentMethod === 'mtn' ? 'MTN' : 'Airtel'} Mobile Money Number *
                   </label>
                   <input
@@ -262,7 +262,7 @@ export default function CheckoutPage() {
                     className="input-field"
                     placeholder="+256 700 000 000"
                   />
-                  <p className="text-sm text-gray-600 mt-2">
+                  <p className="text-sm text-gray-600 dark:text-gray-400 mt-2 transition-colors">
                     You will receive a prompt on your phone to enter your PIN and complete the payment.
                   </p>
                 </div>
@@ -271,7 +271,7 @@ export default function CheckoutPage() {
               {paymentMethod === 'card' && (
                 <div className="space-y-4">
                   <div>
-                    <label className="block text-sm font-semibold mb-2">Card Number *</label>
+                    <label className="block text-sm font-semibold mb-2 text-gray-700 dark:text-gray-300 transition-colors">Card Number *</label>
                     <input
                       type="text"
                       required
@@ -282,7 +282,7 @@ export default function CheckoutPage() {
                   </div>
                   <div className="grid grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-sm font-semibold mb-2">Expiry Date *</label>
+                      <label className="block text-sm font-semibold mb-2 text-gray-700 dark:text-gray-300 transition-colors">Expiry Date *</label>
                       <input
                         type="text"
                         required
@@ -292,7 +292,7 @@ export default function CheckoutPage() {
                       />
                     </div>
                     <div>
-                      <label className="block text-sm font-semibold mb-2">CVV *</label>
+                      <label className="block text-sm font-semibold mb-2 text-gray-700 dark:text-gray-300 transition-colors">CVV *</label>
                       <input
                         type="text"
                         required
@@ -309,33 +309,33 @@ export default function CheckoutPage() {
 
           {/* Order Summary */}
           <div className="lg:col-span-1">
-            <div className="bg-white rounded-lg p-6 shadow-sm sticky top-24">
-              <h2 className="text-2xl font-serif mb-4">Order Summary</h2>
+            <div className="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-sm sticky top-24 transition-colors">
+              <h2 className="text-2xl font-serif mb-4 text-black dark:text-white transition-colors">Order Summary</h2>
 
               <div className="space-y-3 mb-4 max-h-60 overflow-y-auto">
                 {items.map((item) => (
                   <div key={item.id} className="flex justify-between text-sm">
-                    <span className="text-gray-700">
+                    <span className="text-gray-700 dark:text-gray-300 transition-colors">
                       {item.name} × {item.quantity}
                     </span>
-                    <span className="font-semibold">{formatCurrency(item.price * item.quantity)}</span>
+                    <span className="font-semibold text-black dark:text-white transition-colors">{formatCurrency(item.price * item.quantity)}</span>
                   </div>
                 ))}
               </div>
 
-              <div className="border-t border-gray-200 pt-4 space-y-2">
-                <div className="flex justify-between text-gray-700">
+              <div className="border-t border-gray-200 dark:border-gray-700 pt-4 space-y-2 transition-colors">
+                <div className="flex justify-between text-gray-700 dark:text-gray-300 transition-colors">
                   <span>Subtotal</span>
                   <span>{formatCurrency(subtotal)}</span>
                 </div>
-                <div className="flex justify-between text-gray-700">
+                <div className="flex justify-between text-gray-700 dark:text-gray-300 transition-colors">
                   <span>Delivery</span>
                   <span>{deliveryFee > 0 ? formatCurrency(deliveryFee) : 'FREE'}</span>
                 </div>
               </div>
 
-              <div className="border-t border-gray-300 pt-4 mt-4">
-                <div className="flex justify-between text-xl font-bold">
+              <div className="border-t border-gray-300 dark:border-gray-600 pt-4 mt-4 transition-colors">
+                <div className="flex justify-between text-xl font-bold text-black dark:text-white transition-colors">
                   <span>Total</span>
                   <span>{formatCurrency(total)}</span>
                 </div>
@@ -349,7 +349,7 @@ export default function CheckoutPage() {
                 {isProcessing ? 'Processing Payment...' : `Pay ${formatCurrency(total)}`}
               </button>
 
-              <p className="text-xs text-gray-600 text-center mt-4">
+              <p className="text-xs text-gray-600 dark:text-gray-400 text-center mt-4 transition-colors">
                 By placing your order, you agree to our terms and conditions.
               </p>
             </div>

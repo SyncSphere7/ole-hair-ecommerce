@@ -95,20 +95,20 @@ export default function OrdersPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 py-8 transition-colors">
       <div className="container-custom max-w-6xl">
         {/* Header */}
         <div className="mb-8">
-          <h1 className="text-3xl font-serif font-bold text-gray-900 mb-2">Order History</h1>
-          <p className="text-gray-600">Track and manage your Ole Hair orders</p>
+          <h1 className="text-3xl font-serif font-bold text-gray-900 dark:text-white mb-2 transition-colors">Order History</h1>
+          <p className="text-gray-600 dark:text-gray-400 transition-colors">Track and manage your Ole Hair orders</p>
         </div>
 
         {orders.length === 0 ? (
           /* Empty State */
-          <div className="bg-white rounded-lg shadow-sm p-12 text-center">
-            <FiShoppingBag className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-            <h2 className="text-xl font-semibold text-gray-900 mb-2">No Orders Yet</h2>
-            <p className="text-gray-600 mb-6">You haven't placed any orders yet. Start shopping to see your orders here.</p>
+          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-12 text-center transition-colors">
+            <FiShoppingBag className="w-16 h-16 text-gray-300 dark:text-gray-600 mx-auto mb-4 transition-colors" />
+            <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-2 transition-colors">No Orders Yet</h2>
+            <p className="text-gray-600 dark:text-gray-400 mb-6 transition-colors">You haven't placed any orders yet. Start shopping to see your orders here.</p>
             <Link
               href="/products"
               className="inline-flex items-center px-6 py-3 bg-gold text-black font-semibold rounded-lg hover:bg-yellow-500 transition-colors"
@@ -120,22 +120,22 @@ export default function OrdersPage() {
           /* Orders List */
           <div className="space-y-6">
             {orders.map((order) => (
-              <div key={order.id} className="bg-white rounded-lg shadow-sm overflow-hidden">
+              <div key={order.id} className="bg-white dark:bg-gray-800 rounded-lg shadow-sm overflow-hidden transition-colors">
                 {/* Order Header */}
-                <div className="p-6 border-b border-gray-200">
+                <div className="p-6 border-b border-gray-200 dark:border-gray-700 transition-colors">
                   <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                     <div className="flex items-center gap-4">
                       {getStatusIcon(order.status)}
                       <div>
-                        <h3 className="font-semibold text-gray-900">Order #{order.orderNumber}</h3>
-                        <p className="text-sm text-gray-600">Placed on {new Date(order.date).toLocaleDateString()}</p>
+                        <h3 className="font-semibold text-gray-900 dark:text-white transition-colors">Order #{order.orderNumber}</h3>
+                        <p className="text-sm text-gray-600 dark:text-gray-400 transition-colors">Placed on {new Date(order.date).toLocaleDateString()}</p>
                       </div>
                     </div>
                     <div className="flex items-center gap-4">
                       <span className={`px-3 py-1 rounded-full text-sm font-medium border ${getStatusColor(order.status)}`}>
                         {getStatusText(order.status)}
                       </span>
-                      <span className="font-semibold text-lg">{formatPrice(order.total)}</span>
+                      <span className="font-semibold text-lg text-black dark:text-white transition-colors">{formatPrice(order.total)}</span>
                     </div>
                   </div>
                 </div>
@@ -145,7 +145,7 @@ export default function OrdersPage() {
                   <div className="space-y-4">
                     {order.items.map((item) => (
                       <div key={item.id} className="flex items-center gap-4">
-                        <div className="w-16 h-16 bg-gray-100 rounded-lg overflow-hidden flex-shrink-0">
+                        <div className="w-16 h-16 bg-gray-100 dark:bg-gray-700 rounded-lg overflow-hidden flex-shrink-0 transition-colors">
                           <Image
                             src={item.image}
                             alt={item.name}
@@ -155,29 +155,29 @@ export default function OrdersPage() {
                           />
                         </div>
                         <div className="flex-1 min-w-0">
-                          <h4 className="font-medium text-gray-900 truncate">{item.name}</h4>
-                          <p className="text-sm text-gray-600">Quantity: {item.quantity}</p>
+                          <h4 className="font-medium text-gray-900 dark:text-white truncate transition-colors">{item.name}</h4>
+                          <p className="text-sm text-gray-600 dark:text-gray-400 transition-colors">Quantity: {item.quantity}</p>
                         </div>
                         <div className="text-right">
-                          <p className="font-semibold">{formatPrice(item.price)}</p>
+                          <p className="font-semibold text-black dark:text-white transition-colors">{formatPrice(item.price)}</p>
                         </div>
                       </div>
                     ))}
                   </div>
 
                   {/* Order Details */}
-                  <div className="mt-6 pt-4 border-t border-gray-200">
+                  <div className="mt-6 pt-4 border-t border-gray-200 dark:border-gray-700 transition-colors">
                     <div className="flex flex-col md:flex-row justify-between gap-4">
                       <div>
-                        <p className="text-sm text-gray-600">
+                        <p className="text-sm text-gray-600 dark:text-gray-400 transition-colors">
                           <strong>Delivery:</strong> {order.deliveryMethod === 'pickup' ? 'Store Pickup' : 'Home Delivery'}
                         </p>
-                        <p className="text-sm text-gray-600">
+                        <p className="text-sm text-gray-600 dark:text-gray-400 transition-colors">
                           <strong>Address:</strong> {order.deliveryAddress}
                         </p>
                       </div>
                       <div className="flex gap-3">
-                        <button className="flex items-center gap-2 px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors">
+                        <button className="flex items-center gap-2 px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors text-black dark:text-white">
                           <FiEye className="w-4 h-4" />
                           View Details
                         </button>

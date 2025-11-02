@@ -59,7 +59,7 @@ export default function CurrencySelector({
       <div className={`relative ${className}`} ref={dropdownRef}>
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="flex items-center gap-1 px-2 py-1 text-sm bg-gray-100 hover:bg-gray-200 rounded-md transition-colors"
+          className="flex items-center gap-1 px-2 py-1 text-sm bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-black dark:text-white rounded-md transition-colors"
         >
           <span className="text-lg">{selectedCurrency.flag}</span>
           <span className="font-medium">{selectedCurrency.code}</span>
@@ -67,8 +67,8 @@ export default function CurrencySelector({
         </button>
         
         {isOpen && (
-          <div className="absolute top-full right-0 mt-1 w-56 sm:w-64 bg-white rounded-lg shadow-lg border border-gray-200 z-50 max-h-80 overflow-hidden">
-            <div className="p-3 border-b border-gray-200">
+          <div className="absolute top-full right-0 mt-1 w-56 sm:w-64 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 z-50 max-h-80 overflow-hidden">
+            <div className="p-3 border-b border-gray-200 dark:border-gray-700">
               <div className="relative">
                 <FiSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
                 <input
@@ -76,15 +76,15 @@ export default function CurrencySelector({
                   placeholder="Search currencies..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-full pl-9 pr-3 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gold focus:border-transparent"
+                  className="w-full pl-9 pr-3 py-2 text-sm border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-black dark:text-white rounded-md focus:outline-none focus:ring-2 focus:ring-gold focus:border-transparent"
                 />
               </div>
             </div>
             
             <div className="max-h-60 overflow-y-auto">
               {!showAllCurrencies && (
-                <div className="p-2 border-b border-gray-100">
-                  <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">Popular</p>
+                <div className="p-2 border-b border-gray-100 dark:border-gray-700">
+                  <p className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-2">Popular</p>
                 </div>
               )}
               
@@ -92,15 +92,15 @@ export default function CurrencySelector({
                 <button
                   key={currency.code}
                   onClick={() => handleCurrencySelect(currency)}
-                  className={`w-full flex items-center gap-3 px-3 py-2 text-left hover:bg-gray-50 transition-colors ${
-                    selectedCurrency.code === currency.code ? 'bg-gold bg-opacity-10' : ''
+                  className={`w-full flex items-center gap-3 px-3 py-2 text-left hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors ${
+                    selectedCurrency.code === currency.code ? 'bg-gold bg-opacity-10 dark:bg-opacity-20' : ''
                   }`}
                 >
                   <span className="text-lg">{currency.flag}</span>
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2">
-                      <span className="font-medium text-sm">{currency.code}</span>
-                      <span className="text-xs text-gray-500 truncate">{currency.name}</span>
+                      <span className="font-medium text-sm text-black dark:text-white">{currency.code}</span>
+                      <span className="text-xs text-gray-500 dark:text-gray-400 truncate">{currency.name}</span>
                     </div>
                   </div>
                 </button>
@@ -109,7 +109,7 @@ export default function CurrencySelector({
               {!showAllCurrencies && (
                 <button
                   onClick={() => setShowAllCurrencies(true)}
-                  className="w-full px-3 py-2 text-sm text-gold hover:bg-gray-50 border-t border-gray-100"
+                  className="w-full px-3 py-2 text-sm text-gold hover:bg-gray-50 dark:hover:bg-gray-700 border-t border-gray-100 dark:border-gray-700"
                 >
                   Show all currencies ({allCurrencies.length})
                 </button>
@@ -125,9 +125,9 @@ export default function CurrencySelector({
     <div className={`relative ${className}`} ref={dropdownRef}>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-2 px-4 py-2 bg-white border border-gray-300 rounded-lg hover:border-gold transition-colors"
+        className="flex items-center gap-2 px-4 py-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 text-black dark:text-white rounded-lg hover:border-gold transition-colors"
       >
-        <FiGlobe className="w-4 h-4 text-gray-500" />
+        <FiGlobe className="w-4 h-4 text-gray-500 dark:text-gray-400" />
         <span className="text-lg">{selectedCurrency.flag}</span>
         <div className="text-left">
           {showLabel && <div className="text-xs text-gray-500">Currency</div>}

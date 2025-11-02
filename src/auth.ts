@@ -36,7 +36,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   trustHost: true,
   pages: {
     signIn: '/',
-    verifyRequest: '/auth/magic-success',
+    verifyRequest: '/auth/verify-email',
     error: '/auth/error',
   },
   callbacks: {

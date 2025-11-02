@@ -5,8 +5,7 @@ import { useRouter, useSearchParams } from 'next/navigation'
 import { useSession } from 'next-auth/react'
 import Link from 'next/link'
 
-// Magic link success page with session detection
-function MagicSuccessContent() {
+function VerifyEmailContent() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const { data: session, status } = useSession()
@@ -84,7 +83,7 @@ function MagicSuccessContent() {
   )
 }
 
-export default function MagicSuccessPage() {
+export default function VerifyEmailPage() {
   return (
     <Suspense fallback={
       <div className="min-h-screen flex items-center justify-center bg-white dark:bg-gray-900">
@@ -94,7 +93,7 @@ export default function MagicSuccessPage() {
         </div>
       </div>
     }>
-      <MagicSuccessContent />
+      <VerifyEmailContent />
     </Suspense>
   )
 }

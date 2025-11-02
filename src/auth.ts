@@ -48,9 +48,9 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       if (adapterConfig && user) {
         // Database session
         session.user.id = user.id
-      } else if (token) {
+      } else if (token?.sub) {
         // JWT session
-        session.user.id = token.sub || token.id
+        session.user.id = token.sub as string
       }
       return session
     },

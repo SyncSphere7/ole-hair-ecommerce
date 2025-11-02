@@ -53,12 +53,23 @@ export default function ProductCard({ product }: ProductCardProps) {
       <div className="group bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden hover:shadow-lg transition-shadow duration-300">
         <Link href={`/products/${product.id}`}>
           <div className="relative h-64 bg-gray-100 dark:bg-gray-700 overflow-hidden">
-            <Image
-              src={product.image}
-              alt={product.name}
-              fill
-              className="object-cover group-hover:scale-105 transition-transform duration-300"
-            />
+            {product.image.endsWith('.mp4') ? (
+              <video
+                src={product.image}
+                className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300"
+                autoPlay
+                loop
+                muted
+                playsInline
+              />
+            ) : (
+              <Image
+                src={product.image}
+                alt={product.name}
+                fill
+                className="object-cover group-hover:scale-105 transition-transform duration-300"
+              />
+            )}
             
             {/* Badges */}
             <div className="absolute top-3 left-3 flex flex-col gap-2">

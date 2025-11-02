@@ -5,16 +5,17 @@ import { SupabaseAdapter } from "@auth/supabase-adapter"
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   adapter: SupabaseAdapter({
-    url: process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    secret: process.env.SUPABASE_SERVICE_ROLE_KEY!,
+    url: process.env.NEXT_PUBLIC_SUPABASE_URL ?? "",
+    secret: process.env.SUPABASE_SERVICE_ROLE_KEY ?? "",
   }),
   providers: [
     Google({
-      clientId: process.env.GOOGLE_CLIENT_ID!,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+      clientId: process.env.GOOGLE_CLIENT_ID ?? "",
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET ?? "",
+      allowDangerousEmailAccountLinking: true,
     }),
     Resend({
-      apiKey: process.env.AUTH_RESEND_KEY!,
+      apiKey: process.env.AUTH_RESEND_KEY ?? "",
       from: "Ole Hair <noreply@olehair.com>",
     }),
   ],
@@ -26,6 +27,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   },
   session: {
     strategy: "database",
+    maxAge: 30 * 24 * 60 * 60, // 30 days
   },
   callbacks: {
     async session({ session, user }) {
@@ -35,5 +37,5 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       return session
     },
   },
-  debug: true,
+  debug: process.env.NODE_ENV === "development",
 })

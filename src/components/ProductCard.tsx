@@ -78,11 +78,6 @@ export default function ProductCard({ product }: ProductCardProps) {
                   NEW
                 </span>
               )}
-              {product.stockCount !== undefined && product.stockCount <= 3 && product.stockCount > 0 && (
-                <span className="bg-orange-500 text-white text-xs font-bold px-3 py-1 rounded-full">
-                  Only {product.stockCount} left
-                </span>
-              )}
             </div>
 
             {/* Action Buttons */}

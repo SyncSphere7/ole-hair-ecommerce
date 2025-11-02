@@ -4,9 +4,9 @@ import { FiX, FiShoppingCart, FiHeart } from 'react-icons/fi'
 import Image from 'next/image'
 import Link from 'next/link'
 import { Product } from '@/types'
-import { formatCurrency } from '@/lib/utils'
 import { useCartStore } from '@/store/cartStore'
 import { useWishlistStore } from '@/store/wishlistStore'
+import { useCurrencyStore } from '@/store/currencyStore'
 
 interface QuickViewModalProps {
   product: Product
@@ -17,6 +17,7 @@ export default function QuickViewModal({ product, onClose }: QuickViewModalProps
   const addToCart = useCartStore((state) => state.addItem)
   const addToWishlist = useWishlistStore((state) => state.addItem)
   const isInWishlist = useWishlistStore((state) => state.isInWishlist(product.id))
+  const { formatPrice } = useCurrencyStore()
 
   const handleAddToCart = () => {
     addToCart(product)
@@ -72,17 +73,15 @@ export default function QuickViewModal({ product, onClose }: QuickViewModalProps
           <div className="space-y-4">
             <div>
               <h3 className="text-2xl font-serif mb-2">{product.name}</h3>
-              <p className="text-3xl font-bold text-gold">{formatCurrency(product.price)}</p>
+              <p className="text-3xl font-bold text-gold">{formatPrice(product.price)}</p>
             </div>
 
-            {product.stockCount !== undefined && (
+            {product.stockCount !== undefined && product.inStock && (
               <div className="text-sm">
                 {product.stockCount > 5 ? (
                   <span className="text-green-600">In Stock</span>
-                ) : product.stockCount > 0 ? (
-                  <span className="text-orange-600">Only {product.stockCount} left!</span>
                 ) : (
-                  <span className="text-red-600">Out of Stock</span>
+                  <span className="text-orange-600">Limited Stock Available</span>
                 )}
               </div>
             )}

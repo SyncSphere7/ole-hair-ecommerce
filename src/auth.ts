@@ -1,6 +1,5 @@
 import NextAuth from "next-auth"
 import Google from "next-auth/providers/google"
-import Facebook from "next-auth/providers/facebook"
 import Resend from "next-auth/providers/resend"
 import { createClient } from "@/lib/supabase/server"
 
@@ -12,14 +11,6 @@ if (process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET) {
   providers.push(Google({
     clientId: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-  }))
-}
-
-// Facebook OAuth
-if (process.env.FACEBOOK_CLIENT_ID && process.env.FACEBOOK_CLIENT_SECRET) {
-  providers.push(Facebook({
-    clientId: process.env.FACEBOOK_CLIENT_ID,
-    clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
   }))
 }
 

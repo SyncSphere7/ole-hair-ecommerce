@@ -1,7 +1,7 @@
 'use client'
 
 import { signIn } from 'next-auth/react'
-import { FaGoogle, FaFacebook, FaTimes, FaEnvelope } from 'react-icons/fa'
+import { FaGoogle, FaEnvelope } from 'react-icons/fa'
 import { FiX } from 'react-icons/fi'
 import { useEffect, useState } from 'react'
 
@@ -122,16 +122,6 @@ export default function SignInModal({ isOpen, onClose }: SignInModalProps) {
 
         {/* Social Sign In Buttons */}
         <div className="space-y-3">
-          {/* Facebook Sign In - Always show since we have credentials */}
-          <button
-            onClick={() => handleSignIn('facebook')}
-            disabled={isLoading}
-            className="flex w-full items-center justify-center gap-3 rounded-lg border-2 border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 px-6 py-3 font-semibold text-gray-700 dark:text-gray-300 transition-all hover:border-gold hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed"
-          >
-            <FaFacebook className="h-5 w-5 text-blue-600 dark:text-blue-400" />
-            {loadingProvider === 'facebook' ? 'Signing in...' : 'Continue with Facebook'}
-          </button>
-
           {/* Google Sign In */}
           <button
             onClick={() => handleSignIn('google')}

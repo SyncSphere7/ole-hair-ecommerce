@@ -5,6 +5,7 @@ import { useSearchParams } from 'next/navigation'
 import ProductCard from '@/components/ProductCard'
 import { products } from '@/data/products'
 import { FiFilter, FiSearch } from 'react-icons/fi'
+import { useCurrencyStore } from '@/store/currencyStore'
 
 function ProductsPageContent() {
   const searchParams = useSearchParams()
@@ -13,6 +14,7 @@ function ProductsPageContent() {
   const [selectedLength, setSelectedLength] = useState('all')
   const [showFilters, setShowFilters] = useState(false)
   const [searchQuery, setSearchQuery] = useState('')
+  const { formatPrice } = useCurrencyStore()
 
   // Get search query from URL
   useEffect(() => {
@@ -58,12 +60,14 @@ function ProductsPageContent() {
     { value: 'wig', label: 'Wigs' },
     { value: 'bundle', label: 'Bundles' }
   ]
-  const priceRanges = [
+  
+  // Dynamic price ranges that update with currency selector
+  const priceRanges = useMemo(() => [
     { value: 'all', label: 'All Prices' },
-    { value: 'under-200k', label: 'Under ₦200,000' },
-    { value: '200k-300k', label: '₦200,000 - ₦300,000' },
-    { value: 'over-300k', label: 'Over ₦300,000' }
-  ]
+    { value: 'under-200k', label: `Under ${formatPrice(200000)}` },
+    { value: '200k-300k', label: `${formatPrice(200000)} - ${formatPrice(300000)}` },
+    { value: 'over-300k', label: `Over ${formatPrice(300000)}` }
+  ], [formatPrice])
 
   return (
     <div className="py-12 bg-white dark:bg-gray-900 min-h-screen">

@@ -1,7 +1,6 @@
 import NextAuth from "next-auth"
 import Google from "next-auth/providers/google"
 import Resend from "next-auth/providers/resend"
-import { SupabaseAdapter } from "@auth/supabase-adapter"
 
 if (!process.env.NEXT_PUBLIC_SUPABASE_URL) {
   throw new Error("Missing NEXT_PUBLIC_SUPABASE_URL environment variable")
@@ -20,10 +19,6 @@ if (!process.env.AUTH_RESEND_KEY) {
 }
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
-  adapter: SupabaseAdapter({
-    url: process.env.NEXT_PUBLIC_SUPABASE_URL,
-    secret: process.env.SUPABASE_SERVICE_ROLE_KEY,
-  }),
   providers: [
     Google({
       clientId: process.env.GOOGLE_CLIENT_ID,
@@ -43,39 +38,22 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     error: '/auth/error',
   },
   session: {
-    strategy: "database",
-    maxAge: 30 * 24 * 60 * 60, // 30 days
+    strategy: "jwt",
   },
   callbacks: {
-    async session({ session, user }) {
+    async jwt({ token, user, account }) {
       if (user) {
-        session.user.id = user.id
+        token.id = user.id
+        token.email = user.email
+      }
+      return token
+    },
+    async session({ session, token }) {
+      if (token) {
+        session.user.id = token.id as string
+        session.user.email = token.email as string
       }
       return session
-    },
-    async signIn({ user, account, email, credentials }) {
-      console.log("🔵 SIGN IN CALLBACK:", { 
-        user: user?.email, 
-        provider: account?.provider,
-        emailRequest: email 
-      })
-      return true
-    },
-  },
-  events: {
-    async createUser({ user }) {
-      console.log("🟢 USER CREATED:", user.email)
-    },
-    async signIn({ user, account, isNewUser }) {
-      console.log("🟢 SIGNED IN:", { email: user.email, provider: account?.provider, isNewUser })
-    },
-  },
-  logger: {
-    error(error) {
-      console.error("❌ AUTH ERROR:", error)
-    },
-    warn(code) {
-      console.warn("⚠️ AUTH WARNING:", code)
     },
   },
   debug: true,

@@ -42,14 +42,25 @@ export default function QuickViewModal({ product, onClose }: QuickViewModalProps
         </div>
 
         <div className="p-6 grid grid-cols-1 md:grid-cols-2 gap-8">
-          {/* Image */}
+          {/* Image or Video */}
           <div className="relative aspect-square bg-gray-100 rounded-lg overflow-hidden">
-            <Image
-              src={product.image}
-              alt={product.name}
-              fill
-              className="object-cover"
-            />
+            {product.image.endsWith('.mp4') ? (
+              <video
+                src={product.image}
+                className="object-cover w-full h-full"
+                autoPlay
+                loop
+                muted
+                playsInline
+              />
+            ) : (
+              <Image
+                src={product.image}
+                alt={product.name}
+                fill
+                className="object-cover"
+              />
+            )}
             {product.isNew && (
               <span className="absolute top-4 left-4 bg-gold text-black text-xs font-bold px-3 py-1 rounded-full">
                 NEW

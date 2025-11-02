@@ -53,6 +53,30 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       }
       return session
     },
+    async signIn({ user, account, email, credentials }) {
+      console.log("🔵 SIGN IN CALLBACK:", { 
+        user: user?.email, 
+        provider: account?.provider,
+        emailRequest: email 
+      })
+      return true
+    },
   },
-  debug: process.env.NODE_ENV === "development",
+  events: {
+    async createUser({ user }) {
+      console.log("🟢 USER CREATED:", user.email)
+    },
+    async signIn({ user, account, isNewUser }) {
+      console.log("🟢 SIGNED IN:", { email: user.email, provider: account?.provider, isNewUser })
+    },
+  },
+  logger: {
+    error(error) {
+      console.error("❌ AUTH ERROR:", error)
+    },
+    warn(code) {
+      console.warn("⚠️ AUTH WARNING:", code)
+    },
+  },
+  debug: true,
 })

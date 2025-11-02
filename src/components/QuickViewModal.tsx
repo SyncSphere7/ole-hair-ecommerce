@@ -30,12 +30,12 @@ export default function QuickViewModal({ product, onClose }: QuickViewModalProps
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black bg-opacity-50">
-      <div className="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto">
-        <div className="sticky top-0 bg-white border-b border-gray-200 p-4 flex justify-between items-center">
-          <h2 className="text-xl font-serif">Quick View</h2>
+      <div className="bg-white dark:bg-gray-800 rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto transition-colors">
+        <div className="sticky top-0 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 p-4 flex justify-between items-center transition-colors">
+          <h2 className="text-xl font-serif text-black dark:text-white transition-colors">Quick View</h2>
           <button
             onClick={onClose}
-            className="text-gray-500 hover:text-black transition-colors"
+            className="text-gray-500 dark:text-gray-400 hover:text-black dark:hover:text-white transition-colors"
             aria-label="Close"
           >
             <FiX className="w-6 h-6" />
@@ -44,7 +44,7 @@ export default function QuickViewModal({ product, onClose }: QuickViewModalProps
 
         <div className="p-6 grid grid-cols-1 md:grid-cols-2 gap-8">
           {/* Image or Video */}
-          <div className="relative aspect-square bg-gray-100 rounded-lg overflow-hidden">
+          <div className="relative aspect-square bg-gray-100 dark:bg-gray-700 rounded-lg overflow-hidden transition-colors">
             {product.image.endsWith('.mp4') ? (
               <video
                 src={product.image}
@@ -72,27 +72,27 @@ export default function QuickViewModal({ product, onClose }: QuickViewModalProps
           {/* Details */}
           <div className="space-y-4">
             <div>
-              <h3 className="text-2xl font-serif mb-2">{product.name}</h3>
+              <h3 className="text-2xl font-serif mb-2 text-black dark:text-white transition-colors">{product.name}</h3>
               <p className="text-3xl font-bold text-gold">{formatPrice(product.price)}</p>
             </div>
 
             {product.stockCount !== undefined && product.inStock && (
               <div className="text-sm">
                 {product.stockCount > 5 ? (
-                  <span className="text-green-600">In Stock</span>
+                  <span className="text-green-600 dark:text-green-400">In Stock</span>
                 ) : (
-                  <span className="text-orange-600">Limited Stock Available</span>
+                  <span className="text-orange-600 dark:text-orange-400">Limited Stock Available</span>
                 )}
               </div>
             )}
 
-            <p className="text-gray-700 leading-relaxed">{product.description}</p>
+            <p className="text-gray-700 dark:text-gray-300 leading-relaxed transition-colors">{product.description}</p>
 
-            <div className="space-y-2 text-sm">
-              <p><span className="font-semibold">Category:</span> {product.category === 'wig' ? 'Wig' : 'Hair Bundle'}</p>
-              <p><span className="font-semibold">Type:</span> {product.type}</p>
-              {product.size && <p><span className="font-semibold">Size:</span> {product.size}</p>}
-              {product.length && <p><span className="font-semibold">Length:</span> {product.length}</p>}
+            <div className="space-y-2 text-sm text-gray-700 dark:text-gray-300 transition-colors">
+              <p><span className="font-semibold text-black dark:text-white">Category:</span> {product.category === 'wig' ? 'Wig' : 'Hair Bundle'}</p>
+              <p><span className="font-semibold text-black dark:text-white">Type:</span> {product.type}</p>
+              {product.size && <p><span className="font-semibold text-black dark:text-white">Size:</span> {product.size}</p>}
+              {product.length && <p><span className="font-semibold text-black dark:text-white">Length:</span> {product.length}</p>}
             </div>
 
             <div className="flex gap-3 pt-4">
@@ -107,7 +107,9 @@ export default function QuickViewModal({ product, onClose }: QuickViewModalProps
               <button
                 onClick={handleWishlist}
                 className={`p-3 border-2 rounded-lg transition-colors ${
-                  isInWishlist ? 'border-gold bg-gold text-black' : 'border-gray-300 hover:border-gold'
+                  isInWishlist 
+                    ? 'border-gold bg-gold text-black' 
+                    : 'border-gray-300 dark:border-gray-600 text-black dark:text-white hover:border-gold dark:hover:border-gold'
                 }`}
                 aria-label="Add to wishlist"
               >
@@ -118,7 +120,7 @@ export default function QuickViewModal({ product, onClose }: QuickViewModalProps
             <Link
               href={`/products/${product.id}`}
               onClick={onClose}
-              className="block text-center text-gold hover:text-yellow-600 font-medium text-sm"
+              className="block text-center text-gold hover:text-yellow-600 dark:hover:text-yellow-400 font-medium text-sm transition-colors"
             >
               View Full Details →
             </Link>

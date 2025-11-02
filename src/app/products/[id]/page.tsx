@@ -63,18 +63,18 @@ export default function ProductDetailPage() {
   const images = product.images || [product.image]
 
   return (
-    <div className="py-12 bg-white">
+    <div className="py-12 bg-white dark:bg-gray-900 transition-colors">
       <div className="container-custom">
         {/* Breadcrumb */}
-        <div className="mb-6 text-sm text-gray-600">
-          <Link href="/" className="hover:text-gold">Home</Link>
+        <div className="mb-6 text-sm text-gray-600 dark:text-gray-400 transition-colors">
+          <Link href="/" className="hover:text-gold transition-colors">Home</Link>
           <span className="mx-2">/</span>
-          <Link href="/products" className="hover:text-gold">Products</Link>
+          <Link href="/products" className="hover:text-gold transition-colors">Products</Link>
           <span className="mx-2">/</span>
-          <span className="text-black">{product.name}</span>
+          <span className="text-black dark:text-white">{product.name}</span>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
           {/* Product Images */}
           <div>
             <ImageGallery images={images} productName={product.name} />
@@ -83,11 +83,13 @@ export default function ProductDetailPage() {
           {/* Product Info */}
           <div>
             <div className="flex items-start justify-between mb-4">
-              <h1 className="text-3xl md:text-4xl font-serif">{product.name}</h1>
+              <h1 className="text-3xl md:text-4xl font-serif text-black dark:text-white transition-colors">{product.name}</h1>
               <button
                 onClick={handleWishlist}
                 className={`p-3 border-2 rounded-lg transition-colors ${
-                  isInWishlist ? 'border-gold bg-gold text-black' : 'border-gray-300 hover:border-gold'
+                  isInWishlist 
+                    ? 'border-gold bg-gold text-black' 
+                    : 'border-gray-300 dark:border-gray-600 text-black dark:text-white hover:border-gold'
                 }`}
                 aria-label="Add to wishlist"
               >
@@ -96,7 +98,7 @@ export default function ProductDetailPage() {
             </div>
             
             <div className="flex items-center gap-4 mb-6">
-              <span className="text-3xl font-bold">{formatPrice(product.price)}</span>
+              <span className="text-3xl font-bold text-black dark:text-white transition-colors">{formatPrice(product.price)}</span>
               {product.isNew && (
                 <span className="px-3 py-1 bg-gold text-black rounded-full text-sm font-bold">
                   NEW
@@ -107,36 +109,36 @@ export default function ProductDetailPage() {
             {product.stockCount !== undefined && product.inStock && (
               <div className="mb-4">
                 {product.stockCount > 5 ? (
-                  <span className="text-green-600 font-medium">In Stock</span>
+                  <span className="text-green-600 dark:text-green-400 font-medium transition-colors">In Stock</span>
                 ) : (
-                  <span className="text-orange-600 font-medium">Limited Stock Available</span>
+                  <span className="text-orange-600 dark:text-orange-400 font-medium transition-colors">Limited Stock Available</span>
                 )}
               </div>
             )}
 
             <div className="mb-6 space-y-3">
-              <p className="text-gray-700 leading-relaxed">{product.description}</p>
+              <p className="text-gray-700 dark:text-gray-300 leading-relaxed transition-colors">{product.description}</p>
               
               {/* Product Details */}
-              <div className="border-t border-gray-200 pt-4 space-y-2">
+              <div className="border-t border-gray-200 dark:border-gray-700 pt-4 space-y-2 transition-colors">
                 <div className="flex justify-between">
-                  <span className="font-semibold">Category:</span>
-                  <span className="text-gray-700 capitalize">{product.category}</span>
+                  <span className="font-semibold text-black dark:text-white transition-colors">Category:</span>
+                  <span className="text-gray-700 dark:text-gray-300 capitalize transition-colors">{product.category}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="font-semibold">Type:</span>
-                  <span className="text-gray-700">{product.type}</span>
+                  <span className="font-semibold text-black dark:text-white transition-colors">Type:</span>
+                  <span className="text-gray-700 dark:text-gray-300 transition-colors">{product.type}</span>
                 </div>
                 {product.size && (
                   <div className="flex justify-between">
-                    <span className="font-semibold">Size:</span>
-                    <span className="text-gray-700">{product.size}</span>
+                    <span className="font-semibold text-black dark:text-white transition-colors">Size:</span>
+                    <span className="text-gray-700 dark:text-gray-300 transition-colors">{product.size}</span>
                   </div>
                 )}
                 {product.length && (
                   <div className="flex justify-between">
-                    <span className="font-semibold">Length:</span>
-                    <span className="text-gray-700">{product.length}</span>
+                    <span className="font-semibold text-black dark:text-white transition-colors">Length:</span>
+                    <span className="text-gray-700 dark:text-gray-300 transition-colors">{product.length}</span>
                   </div>
                 )}
               </div>
@@ -144,8 +146,8 @@ export default function ProductDetailPage() {
 
             {product.videoUrl && (
               <div className="mb-6">
-                <h3 className="font-semibold mb-2">Product Video</h3>
-                <div className="aspect-video bg-gray-100 rounded-lg overflow-hidden">
+                <h3 className="font-semibold mb-2 text-black dark:text-white transition-colors">Product Video</h3>
+                <div className="aspect-video bg-gray-100 dark:bg-gray-700 rounded-lg overflow-hidden transition-colors">
                   <iframe
                     src={product.videoUrl}
                     className="w-full h-full"
@@ -158,18 +160,18 @@ export default function ProductDetailPage() {
 
             {/* Quantity Selector */}
             <div className="mb-6">
-              <label className="block text-sm font-semibold mb-2">Quantity</label>
+              <label className="block text-sm font-semibold mb-2 text-black dark:text-white transition-colors">Quantity</label>
               <div className="flex items-center gap-4">
                 <button
                   onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                  className="w-10 h-10 border border-gray-300 rounded-md hover:bg-gray-100 font-semibold"
+                  className="w-10 h-10 border border-gray-300 dark:border-gray-600 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 font-semibold text-black dark:text-white transition-colors"
                 >
                   -
                 </button>
-                <span className="text-xl font-semibold w-12 text-center">{quantity}</span>
+                <span className="text-xl font-semibold w-12 text-center text-black dark:text-white transition-colors">{quantity}</span>
                 <button
                   onClick={() => setQuantity(quantity + 1)}
-                  className="w-10 h-10 border border-gray-300 rounded-md hover:bg-gray-100 font-semibold"
+                  className="w-10 h-10 border border-gray-300 dark:border-gray-600 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 font-semibold text-black dark:text-white transition-colors"
                 >
                   +
                 </button>
@@ -191,20 +193,20 @@ export default function ProductDetailPage() {
             </div>
 
             {/* Additional Info */}
-            <div className="mt-8 p-4 bg-gray-50 rounded-lg space-y-2 text-sm">
-              <p className="flex items-center gap-2">
+            <div className="mt-8 p-4 bg-gray-50 dark:bg-gray-800 rounded-lg space-y-2 text-sm transition-colors">
+              <p className="flex items-center gap-2 text-gray-700 dark:text-gray-300 transition-colors">
                 <svg className="w-5 h-5 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                 </svg>
                 100% Virgin Hair
               </p>
-              <p className="flex items-center gap-2">
+              <p className="flex items-center gap-2 text-gray-700 dark:text-gray-300 transition-colors">
                 <svg className="w-5 h-5 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                 </svg>
                 Free Pickup in Kampala
               </p>
-              <p className="flex items-center gap-2">
+              <p className="flex items-center gap-2 text-gray-700 dark:text-gray-300 transition-colors">
                 <svg className="w-5 h-5 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                 </svg>
@@ -217,7 +219,7 @@ export default function ProductDetailPage() {
         {/* Related Products */}
         {relatedProducts.length > 0 && (
           <div className="mt-16">
-            <h2 className="text-2xl md:text-3xl font-serif mb-8">You May Also Like</h2>
+            <h2 className="text-2xl md:text-3xl font-serif mb-8 text-black dark:text-white transition-colors">You May Also Like</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
               {relatedProducts.map((relatedProduct) => (
                 <ProductCard key={relatedProduct.id} product={relatedProduct} />

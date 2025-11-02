@@ -17,7 +17,7 @@ export default function ImageGallery({ images, productName }: ImageGalleryProps)
     <>
       <div className="space-y-4">
         {/* Main Image or Video */}
-        <div className="relative aspect-square bg-gray-100 rounded-lg overflow-hidden group">
+        <div className="relative aspect-square bg-gray-100 dark:bg-gray-700 rounded-lg overflow-hidden group transition-colors">
           {images[selectedImage].endsWith('.mp4') ? (
             <video
               src={images[selectedImage]}
@@ -39,7 +39,7 @@ export default function ImageGallery({ images, productName }: ImageGalleryProps)
           {!images[selectedImage].endsWith('.mp4') && (
             <button
               onClick={() => setIsZoomed(true)}
-              className="absolute top-4 right-4 bg-white p-2 rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-opacity"
+              className="absolute top-4 right-4 bg-white dark:bg-gray-800 text-black dark:text-white p-2 rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-all"
               aria-label="Zoom image"
             >
               <FiZoomIn className="w-5 h-5" />
@@ -54,8 +54,8 @@ export default function ImageGallery({ images, productName }: ImageGalleryProps)
               <button
                 key={index}
                 onClick={() => setSelectedImage(index)}
-                className={`relative aspect-square bg-gray-100 rounded-lg overflow-hidden border-2 transition-colors ${
-                  selectedImage === index ? 'border-gold' : 'border-transparent hover:border-gray-300'
+                className={`relative aspect-square bg-gray-100 dark:bg-gray-700 rounded-lg overflow-hidden border-2 transition-colors ${
+                  selectedImage === index ? 'border-gold' : 'border-transparent hover:border-gray-300 dark:hover:border-gray-600'
                 }`}
               >
                 {image.endsWith('.mp4') ? (

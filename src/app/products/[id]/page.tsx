@@ -3,9 +3,9 @@
 import { useParams, useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { getProductById, products } from '@/data/products'
-import { formatCurrency } from '@/lib/utils'
 import { useCartStore } from '@/store/cartStore'
 import { useWishlistStore } from '@/store/wishlistStore'
+import { useCurrencyStore } from '@/store/currencyStore'
 import { useState } from 'react'
 import { FiHeart } from 'react-icons/fi'
 import ImageGallery from '@/components/ImageGallery'
@@ -22,6 +22,7 @@ export default function ProductDetailPage() {
   const addToWishlist = useWishlistStore((state) => state.addItem)
   const removeFromWishlist = useWishlistStore((state) => state.removeItem)
   const isInWishlist = useWishlistStore((state) => state.isInWishlist(productId))
+  const { formatPrice } = useCurrencyStore()
 
   if (!product) {
     return (
@@ -95,7 +96,7 @@ export default function ProductDetailPage() {
             </div>
             
             <div className="flex items-center gap-4 mb-6">
-              <span className="text-3xl font-bold">{formatCurrency(product.price)}</span>
+              <span className="text-3xl font-bold">{formatPrice(product.price)}</span>
               {product.isNew && (
                 <span className="px-3 py-1 bg-gold text-black rounded-full text-sm font-bold">
                   NEW
@@ -103,14 +104,12 @@ export default function ProductDetailPage() {
               )}
             </div>
 
-            {product.stockCount !== undefined && (
+            {product.stockCount !== undefined && product.inStock && (
               <div className="mb-4">
                 {product.stockCount > 5 ? (
                   <span className="text-green-600 font-medium">In Stock</span>
-                ) : product.stockCount > 0 ? (
-                  <span className="text-orange-600 font-medium">Only {product.stockCount} left in stock!</span>
                 ) : (
-                  <span className="text-red-600 font-medium">Out of Stock</span>
+                  <span className="text-orange-600 font-medium">Limited Stock Available</span>
                 )}
               </div>
             )}

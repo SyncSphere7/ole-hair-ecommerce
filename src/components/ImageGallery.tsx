@@ -16,22 +16,35 @@ export default function ImageGallery({ images, productName }: ImageGalleryProps)
   return (
     <>
       <div className="space-y-4">
-        {/* Main Image */}
+        {/* Main Image or Video */}
         <div className="relative aspect-square bg-gray-100 rounded-lg overflow-hidden group">
-          <Image
-            src={images[selectedImage]}
-            alt={`${productName} - Image ${selectedImage + 1}`}
-            fill
-            className="object-cover"
-            priority
-          />
-          <button
-            onClick={() => setIsZoomed(true)}
-            className="absolute top-4 right-4 bg-white p-2 rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-opacity"
-            aria-label="Zoom image"
-          >
-            <FiZoomIn className="w-5 h-5" />
-          </button>
+          {images[selectedImage].endsWith('.mp4') ? (
+            <video
+              src={images[selectedImage]}
+              className="object-cover w-full h-full"
+              autoPlay
+              loop
+              muted
+              playsInline
+            />
+          ) : (
+            <Image
+              src={images[selectedImage]}
+              alt={`${productName} - Image ${selectedImage + 1}`}
+              fill
+              className="object-cover"
+              priority
+            />
+          )}
+          {!images[selectedImage].endsWith('.mp4') && (
+            <button
+              onClick={() => setIsZoomed(true)}
+              className="absolute top-4 right-4 bg-white p-2 rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-opacity"
+              aria-label="Zoom image"
+            >
+              <FiZoomIn className="w-5 h-5" />
+            </button>
+          )}
         </div>
 
         {/* Thumbnails */}
@@ -45,12 +58,20 @@ export default function ImageGallery({ images, productName }: ImageGalleryProps)
                   selectedImage === index ? 'border-gold' : 'border-transparent hover:border-gray-300'
                 }`}
               >
-                <Image
-                  src={image}
-                  alt={`${productName} thumbnail ${index + 1}`}
-                  fill
-                  className="object-cover"
-                />
+                {image.endsWith('.mp4') ? (
+                  <video
+                    src={image}
+                    className="object-cover w-full h-full"
+                    muted
+                  />
+                ) : (
+                  <Image
+                    src={image}
+                    alt={`${productName} thumbnail ${index + 1}`}
+                    fill
+                    className="object-cover"
+                  />
+                )}
               </button>
             ))}
           </div>

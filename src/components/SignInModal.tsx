@@ -13,6 +13,7 @@ interface SignInModalProps {
 export default function SignInModal({ isOpen, onClose }: SignInModalProps) {
   const [email, setEmail] = useState('')
   const [isLoading, setIsLoading] = useState(false)
+  const [loadingProvider, setLoadingProvider] = useState<string | null>(null)
   const [message, setMessage] = useState('')
 
   useEffect(() => {
@@ -30,6 +31,7 @@ export default function SignInModal({ isOpen, onClose }: SignInModalProps) {
 
   const handleSignIn = async (provider: string) => {
     setIsLoading(true)
+    setLoadingProvider(provider)
     setMessage('')
     try {
       const result = await signIn(provider, { 
@@ -46,6 +48,7 @@ export default function SignInModal({ isOpen, onClose }: SignInModalProps) {
       setMessage('Sign in failed. Please try again.')
     } finally {
       setIsLoading(false)
+      setLoadingProvider(null)
     }
   }
 
@@ -126,7 +129,7 @@ export default function SignInModal({ isOpen, onClose }: SignInModalProps) {
             className="flex w-full items-center justify-center gap-3 rounded-lg border-2 border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 px-6 py-3 font-semibold text-gray-700 dark:text-gray-300 transition-all hover:border-gold hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             <FaFacebook className="h-5 w-5 text-blue-600 dark:text-blue-400" />
-            {isLoading ? 'Signing in...' : 'Continue with Facebook'}
+            {loadingProvider === 'facebook' ? 'Signing in...' : 'Continue with Facebook'}
           </button>
 
           {/* Google Sign In */}
@@ -136,7 +139,7 @@ export default function SignInModal({ isOpen, onClose }: SignInModalProps) {
             className="flex w-full items-center justify-center gap-3 rounded-lg border-2 border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 px-6 py-3 font-semibold text-gray-700 dark:text-gray-300 transition-all hover:border-gold hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             <FaGoogle className="h-5 w-5 text-red-500 dark:text-red-400" />
-            {isLoading ? 'Signing in...' : 'Continue with Google'}
+            {loadingProvider === 'google' ? 'Signing in...' : 'Continue with Google'}
           </button>
         </div>
 

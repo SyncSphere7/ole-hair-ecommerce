@@ -1,7 +1,7 @@
 import NextAuth from "next-auth"
 import Google from "next-auth/providers/google"
 import Resend from "next-auth/providers/resend"
-import { createClient } from "@/lib/supabase/server"
+import { SupabaseAdapter } from "@auth/supabase-adapter"
 
 // Only include providers with valid credentials
 const providers = []
@@ -14,68 +14,33 @@ if (process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET) {
   }))
 }
 
-// Note: Email magic links require a database adapter
-// For now, we'll focus on OAuth providers which work without a database
-// To enable email auth, you would need to set up Supabase or another database adapter
+// Email Magic Link with Resend
+if (process.env.AUTH_RESEND_KEY) {
+  providers.push(Resend({
+    apiKey: process.env.AUTH_RESEND_KEY,
+    from: "Ole Hair <noreply@olehair.com>",
+  }))
+}
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers,
-  trustHost: true, // Trust the host header for production
+  adapter: SupabaseAdapter({
+    url: process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    secret: process.env.SUPABASE_SERVICE_ROLE_KEY!,
+  }),
+  trustHost: true,
+  pages: {
+    signIn: '/',
+    verifyRequest: '/auth/magic-success',
+    error: '/auth/error',
+  },
   callbacks: {
-    async signIn({ user, account, profile }) {
-      if (!user.email) return false
-
-      // Only try Supabase integration if environment variables are set
-      if (process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
-        try {
-          const supabase = await createClient()
-          
-          // Check if user exists in our database
-          const { data: existingUser } = await supabase
-            .from('users')
-            .select('*')
-            .eq('email', user.email)
-            .single()
-
-          if (!existingUser && account) {
-            // Create user in Supabase if they don't exist
-            const { error } = await supabase
-              .from('users')
-              .insert({
-                email: user.email,
-                name: user.name,
-                image: user.image,
-                provider: account.provider,
-              })
-
-            if (error) {
-              console.error('Error creating user in Supabase:', error)
-              // Don't block sign-in if Supabase fails
-            }
-          }
-        } catch (error) {
-          console.error('Supabase integration error:', error)
-          // Don't block sign-in if Supabase fails
-        }
-      }
-
-      return true
-    },
-    async session({ session, token }) {
-      if (session.user && token.sub) {
-        session.user.id = token.sub
+    async session({ session, user }) {
+      if (session.user) {
+        session.user.id = user.id
       }
       return session
     },
-    async jwt({ token, user }) {
-      if (user) {
-        token.sub = user.id
-      }
-      return token
-    },
-  },
-  pages: {
-    signIn: '/auth/signin',
   },
   debug: process.env.NODE_ENV === 'development',
 })

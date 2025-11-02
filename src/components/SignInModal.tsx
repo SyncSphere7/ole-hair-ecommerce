@@ -55,32 +55,27 @@ export default function SignInModal({ isOpen, onClose }: SignInModalProps) {
   const handleEmailSignIn = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsLoading(true)
+    setLoadingProvider('email')
     setMessage('')
     try {
-      const response = await fetch('/api/auth/magic-link-send', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          email,
-          callbackUrl: '/',
-        }),
+      const result = await signIn('resend', {
+        email,
+        redirect: false,
+        callbackUrl: '/',
       })
       
-      const data = await response.json()
-      
-      if (response.ok) {
-        setMessage('Check your email for a sign-in link!')
-        setEmail('')
+      if (result?.error) {
+        setMessage('Failed to send email. Please try again.')
       } else {
-        setMessage(data.error || 'Failed to send email. Please try again.')
+        setMessage('✉️ Magic link sent! Check your email (and spam/junk folder) for the sign-in link.')
+        setEmail('')
       }
     } catch (error) {
       console.error('Email sign in error:', error)
       setMessage('Failed to send email. Please try again.')
     } finally {
       setIsLoading(false)
+      setLoadingProvider(null)
     }
   }
 
@@ -156,7 +151,7 @@ export default function SignInModal({ isOpen, onClose }: SignInModalProps) {
             className="flex w-full items-center justify-center gap-3 rounded-lg bg-black dark:bg-gray-700 px-6 py-3 font-semibold text-white transition-all hover:bg-gray-800 dark:hover:bg-gray-600 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             <FaEnvelope className="h-4 w-4" />
-            {isLoading ? 'Sending...' : 'Sign in with Email'}
+            {loadingProvider === 'email' ? 'Sending...' : 'Sign in with Email'}
           </button>
         </form>
 

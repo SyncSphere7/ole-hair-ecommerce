@@ -22,12 +22,17 @@ if (process.env.AUTH_RESEND_KEY) {
   }))
 }
 
+// Configure adapter only if Supabase credentials are available
+const adapterConfig = (process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.SUPABASE_SERVICE_ROLE_KEY)
+  ? SupabaseAdapter({
+      url: process.env.NEXT_PUBLIC_SUPABASE_URL,
+      secret: process.env.SUPABASE_SERVICE_ROLE_KEY,
+    })
+  : undefined
+
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers,
-  adapter: SupabaseAdapter({
-    url: process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    secret: process.env.SUPABASE_SERVICE_ROLE_KEY!,
-  }),
+  adapter: adapterConfig,
   trustHost: true,
   pages: {
     signIn: '/',
@@ -36,7 +41,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   },
   callbacks: {
     async session({ session, user }) {
-      if (session.user) {
+      if (session.user && user) {
         session.user.id = user.id
       }
       return session

@@ -87,7 +87,7 @@ export default function PhoneAuthTab({ onSuccess }: PhoneAuthTabProps) {
 
   const handleCountryChange = (code: string, dial: string) => {
     setCountryCode(code)
-    setDialCode(dial)
+    // dialCode not needed - we don't display it anymore
   }
 
   if (otpSent) {

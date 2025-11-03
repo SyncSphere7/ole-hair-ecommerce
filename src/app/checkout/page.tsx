@@ -38,31 +38,64 @@ export default function CheckoutPage() {
     e.preventDefault()
     setIsProcessing(true)
 
-    // Simulate payment processing
-    // In production, this would call Pesapal API
-    const orderNumber = generateOrderNumber()
-    
-    // Store order details in sessionStorage for confirmation page
-    const orderData = {
-      orderNumber,
-      items,
-      subtotal,
-      deliveryFee,
-      total,
-      deliveryMethod,
-      customerInfo,
-      paymentMethod,
-      phoneNumber,
-      createdAt: new Date().toISOString(),
-    }
+    try {
+      const orderNumber = generateOrderNumber()
+      
+      // Split name into first and last name
+      const nameParts = customerInfo.name.trim().split(' ')
+      const firstName = nameParts[0] || ''
+      const lastName = nameParts.slice(1).join(' ') || nameParts[0] || ''
 
-    sessionStorage.setItem('lastOrder', JSON.stringify(orderData))
-    
-    // Simulate payment delay
-    setTimeout(() => {
-      clearCart()
-      router.push(`/confirmation?order=${orderNumber}`)
-    }, 2000)
+      // Prepare order data for Pesapal
+      const orderData = {
+        orderNumber,
+        amount: total,
+        currency: 'UGX',
+        email: customerInfo.email,
+        phone: customerInfo.phone,
+        firstName,
+        lastName,
+        cartItems: items.map(item => ({
+          id: item.id,
+          name: item.name,
+          price: item.price,
+          quantity: item.quantity,
+          image: item.image,
+        })),
+        deliveryMethod,
+        deliveryAddress: deliveryMethod === 'delivery' ? {
+          address: customerInfo.address,
+          city: customerInfo.city,
+        } : null,
+      }
+
+      // Call Pesapal initiate payment API
+      const response = await fetch('/api/pesapal/initiate', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(orderData),
+      })
+
+      const data = await response.json()
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Failed to initiate payment')
+      }
+
+      // Store order number in sessionStorage for reference
+      sessionStorage.setItem('lastOrderNumber', orderNumber)
+      sessionStorage.setItem('orderTrackingId', data.order_tracking_id)
+
+      // Redirect to Pesapal payment page
+      // Cart will only be cleared after successful payment verification
+      window.location.href = data.redirect_url
+    } catch (error) {
+      console.error('Payment error:', error)
+      alert('Failed to initiate payment. Please try again.')
+      setIsProcessing(false)
+    }
   }
 
   return (

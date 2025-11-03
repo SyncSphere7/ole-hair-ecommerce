@@ -1,12 +1,12 @@
 'use client'
 
-import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { FiPackage, FiClock, FiCheckCircle, FiTruck, FiEye, FiShoppingBag } from 'react-icons/fi'
 import { useCurrencyStore } from '@/store/currencyStore'
+import { supabase } from '@/lib/auth/supabase-auth'
 
 // TypeScript interfaces for order data
 interface OrderItem {
@@ -29,19 +29,38 @@ interface Order {
 }
 
 export default function OrdersPage() {
-  const { data: session, status } = useSession()
   const router = useRouter()
   const { formatPrice } = useCurrencyStore()
+  const [loading, setLoading] = useState(true)
+  const [user, setUser] = useState<any>(null)
   const [orders, setOrders] = useState<Order[]>([]) // Real orders will be loaded from database
 
   useEffect(() => {
-    if (status === 'loading') return
-    
-    if (!session) {
-      router.push('/')
-      return
+    const checkUser = async () => {
+      const { data: { session } } = await supabase.auth.getSession()
+      
+      if (!session) {
+        router.push('/')
+        return
+      }
+
+      setUser(session.user)
+      setLoading(false)
     }
-  }, [session, status, router])
+
+    checkUser()
+
+    // Listen for auth changes
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      if (!session) {
+        router.push('/')
+      } else {
+        setUser(session.user)
+      }
+    })
+
+    return () => subscription.unsubscribe()
+  }, [router])
 
   const getStatusIcon = (status: string) => {
     switch (status) {
@@ -82,15 +101,15 @@ export default function OrdersPage() {
     }
   }
 
-  if (status === 'loading') {
+  if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center bg-white dark:bg-gray-900 transition-colors">
         <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gold"></div>
       </div>
     )
   }
 
-  if (!session) {
+  if (!user) {
     return null
   }
 

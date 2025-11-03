@@ -1,15 +1,16 @@
 'use client'
 
-import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { FiUser, FiMail, FiCalendar, FiEdit2, FiShoppingBag, FiHeart } from 'react-icons/fi'
+import { supabase } from '@/lib/auth/supabase-auth'
 
 export default function ProfilePage() {
-  const { data: session, status } = useSession()
   const router = useRouter()
+  const [loading, setLoading] = useState(true)
+  const [user, setUser] = useState<any>(null)
   const [isEditing, setIsEditing] = useState(false)
   const [profileData, setProfileData] = useState({
     name: '',
@@ -20,23 +21,40 @@ export default function ProfilePage() {
   })
 
   useEffect(() => {
-    if (status === 'loading') return
-    
-    if (!session) {
-      router.push('/')
-      return
+    const checkUser = async () => {
+      const { data: { session } } = await supabase.auth.getSession()
+      
+      if (!session) {
+        router.push('/')
+        return
+      }
+
+      setUser(session.user)
+      setProfileData({
+        name: session.user.user_metadata?.name || session.user.email?.split('@')[0] || '',
+        email: session.user.email || session.user.phone || '',
+        phone: session.user.phone || '',
+        address: '',
+        city: '',
+      })
+      setLoading(false)
     }
 
-    setProfileData({
-      name: session.user?.name || '',
-      email: session.user?.email || '',
-      phone: '',
-      address: '',
-      city: '',
-    })
-  }, [session, status, router])
+    checkUser()
 
-  if (status === 'loading') {
+    // Listen for auth changes
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      if (!session) {
+        router.push('/')
+      } else {
+        setUser(session.user)
+      }
+    })
+
+    return () => subscription.unsubscribe()
+  }, [router])
+
+  if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-white dark:bg-gray-900 transition-colors">
         <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gold"></div>
@@ -44,7 +62,7 @@ export default function ProfilePage() {
     )
   }
 
-  if (!session) {
+  if (!user) {
     return null
   }
 
@@ -54,9 +72,9 @@ export default function ProfilePage() {
         <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-6 mb-6 transition-colors">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
-              {session.user?.image ? (
+              {user.user_metadata?.avatar_url ? (
                 <Image
-                  src={session.user.image}
+                  src={user.user_metadata.avatar_url}
                   alt="Profile"
                   width={80}
                   height={80}
@@ -69,11 +87,11 @@ export default function ProfilePage() {
               )}
               <div>
                 <h1 className="text-2xl font-serif font-bold text-gray-900 dark:text-white transition-colors">
-                  {session.user?.name || 'User Profile'}
+                  {user.user_metadata?.name || user.email?.split('@')[0] || 'User Profile'}
                 </h1>
                 <p className="text-gray-600 dark:text-gray-400 flex items-center gap-2 transition-colors">
                   <FiMail className="w-4 h-4" />
-                  {session.user?.email}
+                  {user.email || user.phone}
                 </p>
               </div>
             </div>

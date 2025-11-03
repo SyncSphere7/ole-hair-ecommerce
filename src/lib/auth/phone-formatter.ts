@@ -45,9 +45,19 @@ export function formatPhoneForDisplay(phone: string, defaultCountry: CountryCode
 }
 
 /**
+ * Country type definition
+ */
+export type Country = {
+  code: string
+  name: string
+  dialCode: string
+  flag: string
+}
+
+/**
  * All country codes for selector (no + prefix in display)
  */
-export const COMMON_COUNTRIES = [
+export const COMMON_COUNTRIES: Country[] = [
   // East Africa (Top priority)
   { code: 'UG', name: 'Uganda', dialCode: '256', flag: '🇺🇬' },
   { code: 'KE', name: 'Kenya', dialCode: '254', flag: '🇰🇪' },
@@ -155,4 +165,4 @@ export const COMMON_COUNTRIES = [
   // Oceania
   { code: 'AU', name: 'Australia', dialCode: '61', flag: '🇦🇺' },
   { code: 'NZ', name: 'New Zealand', dialCode: '64', flag: '🇳🇿' },
-] as const
+]

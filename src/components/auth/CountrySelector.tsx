@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { COMMON_COUNTRIES } from '@/lib/auth/phone-formatter'
+import { COMMON_COUNTRIES, type Country } from '@/lib/auth/phone-formatter'
 
 interface CountrySelectorProps {
   value: string
@@ -14,7 +14,7 @@ export default function CountrySelector({ value, onChange, disabled = false }: C
   
   const selectedCountry = COMMON_COUNTRIES.find(c => c.code === value) || COMMON_COUNTRIES[0]
 
-  const handleSelect = (country: typeof COMMON_COUNTRIES[number]) => {
+  const handleSelect = (country: Country) => {
     onChange(country.code, country.dialCode)
     setIsOpen(false)
   }

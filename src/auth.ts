@@ -1,6 +1,6 @@
 import NextAuth from "next-auth"
 import Google from "next-auth/providers/google"
-import Resend from "next-auth/providers/resend"
+import Credentials from "next-auth/providers/credentials"
 import { createClient } from "@/lib/supabase/server"
 
 // Only include providers with valid credentials
@@ -14,9 +14,29 @@ if (process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET) {
   }))
 }
 
-// Note: Email magic links require a database adapter
-// For now, we'll focus on OAuth providers which work without a database
-// To enable email auth, you would need to set up Supabase or another database adapter
+// Credentials provider for magic link authentication
+// This is used internally by the magic link verify endpoint
+providers.push(Credentials({
+  id: 'credentials',
+  name: 'Magic Link',
+  credentials: {
+    email: { label: "Email", type: "email" }
+  },
+  async authorize(credentials) {
+    if (!credentials?.email || typeof credentials.email !== 'string') {
+      return null
+    }
+
+    const email = credentials.email as string
+
+    // Return user object - the signIn callback will handle Supabase sync
+    return {
+      id: email, // Temporary ID, will be replaced in signIn callback
+      email: email,
+      name: email.split('@')[0],
+    }
+  },
+}))
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers,

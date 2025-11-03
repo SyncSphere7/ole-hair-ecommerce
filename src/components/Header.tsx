@@ -4,20 +4,21 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { useState, useEffect } from 'react'
 import { FiShoppingCart, FiMenu, FiX, FiHeart, FiUser, FiLogOut } from 'react-icons/fi'
-import { useSession, signOut } from 'next-auth/react'
 import { useCartStore } from '@/store/cartStore'
 import { useWishlistStore } from '@/store/wishlistStore'
 import SearchBar from './SearchBar'
-import SignInModal from './SignInModal'
+import AuthModal from './auth/AuthModal'
 import CurrencySelector from './CurrencySelector'
 import ThemeToggle from './ThemeToggle'
+import { supabase, signOut as supabaseSignOut } from '@/lib/auth/supabase-auth'
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [signInModalOpen, setSignInModalOpen] = useState(false)
   const [userMenuOpen, setUserMenuOpen] = useState(false)
   const [mounted, setMounted] = useState(false)
-  const { data: session, status } = useSession()
+  const [user, setUser] = useState<any>(null)
+  const [loading, setLoading] = useState(true)
   const cartCount = useCartStore((state) => state.getItemCount())
   const wishlistItems = useWishlistStore((state) => state.items)
   const wishlistCount = wishlistItems.length
@@ -25,7 +26,27 @@ export default function Header() {
   // Prevent hydration mismatch by only showing counts after mounting
   useEffect(() => {
     setMounted(true)
+    
+    // Get initial session
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setUser(session?.user ?? null)
+      setLoading(false)
+    })
+
+    // Listen for auth changes
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session?.user ?? null)
+      setLoading(false)
+    })
+
+    return () => subscription.unsubscribe()
   }, [])
+
+  const handleSignOut = async () => {
+    await supabaseSignOut()
+    setUser(null)
+    setUserMenuOpen(false)
+  }
 
   return (
     <header className="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 sticky top-0 z-50 shadow-sm transition-colors">
@@ -88,25 +109,25 @@ export default function Header() {
             </Link>
 
             {/* User Authentication */}
-            {status === 'loading' ? (
-              <div className="w-8 h-8 rounded-full bg-gray-200 animate-pulse" />
-            ) : session?.user ? (
+            {loading ? (
+              <div className="w-8 h-8 rounded-full bg-gray-200 dark:bg-gray-700 animate-pulse" />
+            ) : user ? (
               <div className="relative hidden md:block">
                 <button
                   onClick={() => setUserMenuOpen(!userMenuOpen)}
                   className="flex items-center gap-2 hover:opacity-80 transition-opacity"
                 >
-                  {session.user.image ? (
+                  {user.user_metadata?.avatar_url ? (
                     <Image
-                      src={session.user.image}
-                      alt={session.user.name || 'User'}
+                      src={user.user_metadata.avatar_url}
+                      alt={user.user_metadata?.name || user.email || 'User'}
                       width={32}
                       height={32}
                       className="rounded-full border-2 border-gold"
                     />
                   ) : (
                     <div className="w-8 h-8 rounded-full bg-gold flex items-center justify-center">
-                      <FiUser className="w-5 h-5 text-black" />
+                      <FiUser className="w-4 h-4 text-black" />
                     </div>
                   )}
                 </button>
@@ -115,8 +136,8 @@ export default function Header() {
                 {userMenuOpen && (
                   <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 py-2 z-50">
                     <div className="px-4 py-2 border-b border-gray-200 dark:border-gray-700">
-                      <p className="font-semibold text-sm text-black dark:text-white">{session.user.name}</p>
-                      <p className="text-xs text-gray-500 dark:text-gray-400 truncate">{session.user.email}</p>
+                      <p className="font-semibold text-sm text-black dark:text-white">{user.user_metadata?.name || 'User'}</p>
+                      <p className="text-xs text-gray-500 dark:text-gray-400 truncate">{user.email || user.phone}</p>
                     </div>
                     <Link
                       href="/profile"
@@ -133,10 +154,7 @@ export default function Header() {
                       Order History
                     </Link>
                     <button
-                      onClick={() => {
-                        setUserMenuOpen(false)
-                        signOut()
-                      }}
+                      onClick={handleSignOut}
                       className="w-full text-left px-4 py-2 text-sm text-red-600 dark:text-red-400 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors flex items-center gap-2"
                     >
                       <FiLogOut className="w-4 h-4" />
@@ -204,7 +222,7 @@ export default function Header() {
             </div>
             
             {/* Mobile Sign In */}
-            {!session?.user && (
+            {!user && (
               <button
                 onClick={() => {
                   setMobileMenuOpen(false)
@@ -218,25 +236,25 @@ export default function Header() {
             )}
             
             {/* Mobile User Info */}
-            {session?.user && (
+            {user && (
               <div className="border-t border-gray-200 dark:border-gray-700 pt-4 mt-2">
                 <div className="flex items-center gap-3 mb-3">
-                  {session.user.image ? (
+                  {user.user_metadata?.avatar_url ? (
                     <Image
-                      src={session.user.image}
-                      alt={session.user.name || 'User'}
+                      src={user.user_metadata.avatar_url}
+                      alt={user.user_metadata?.name || user.email || 'User'}
                       width={40}
                       height={40}
                       className="rounded-full border-2 border-gold"
                     />
                   ) : (
                     <div className="w-10 h-10 rounded-full bg-gold flex items-center justify-center">
-                      <FiUser className="w-6 h-6 text-black" />
+                      <FiUser className="w-5 h-5 text-black" />
                     </div>
                   )}
                   <div>
-                    <p className="font-semibold text-sm text-black dark:text-white">{session.user.name}</p>
-                    <p className="text-xs text-gray-500 dark:text-gray-400">{session.user.email}</p>
+                    <p className="font-semibold text-sm text-black dark:text-white">{user.user_metadata?.name || 'User'}</p>
+                    <p className="text-xs text-gray-500 dark:text-gray-400">{user.email || user.phone}</p>
                   </div>
                 </div>
                 <Link
@@ -256,7 +274,7 @@ export default function Header() {
                 <button
                   onClick={() => {
                     setMobileMenuOpen(false)
-                    signOut()
+                    handleSignOut()
                   }}
                   className="flex items-center gap-2 py-2 text-sm text-red-600 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300 transition-colors"
                 >
@@ -269,8 +287,8 @@ export default function Header() {
         )}
       </nav>
       
-      {/* Sign In Modal */}
-      <SignInModal isOpen={signInModalOpen} onClose={() => setSignInModalOpen(false)} />
+      {/* Auth Modal */}
+      <AuthModal isOpen={signInModalOpen} onClose={() => setSignInModalOpen(false)} />
     </header>
   )
 }

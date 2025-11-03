@@ -14,7 +14,7 @@ export default function CountrySelector({ value, onChange, disabled = false }: C
   
   const selectedCountry = COMMON_COUNTRIES.find(c => c.code === value) || COMMON_COUNTRIES[0]
 
-  const handleSelect = (country: typeof COMMON_COUNTRIES[0]) => {
+  const handleSelect = (country: typeof COMMON_COUNTRIES[number]) => {
     onChange(country.code, country.dialCode)
     setIsOpen(false)
   }

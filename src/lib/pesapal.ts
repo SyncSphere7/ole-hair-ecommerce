@@ -71,7 +71,13 @@ export async function getPesapalToken(): Promise<string> {
     const data: PesapalTokenResponse = await response.json()
 
     if (data.error) {
-      throw new Error(`Pesapal error: ${data.message || data.error}`)
+      console.error('Pesapal token error:', JSON.stringify(data, null, 2))
+      throw new Error(`Pesapal error: ${data.message || data.error || JSON.stringify(data)}`)
+    }
+
+    if (!data.token) {
+      console.error('No token in response:', JSON.stringify(data, null, 2))
+      throw new Error(`No token received from Pesapal: ${JSON.stringify(data)}`)
     }
 
     return data.token
@@ -141,7 +147,13 @@ export async function submitPesapalOrder(
     const data: PesapalOrderResponse = await response.json()
 
     if (data.error) {
-      throw new Error(`Pesapal order error: ${data.message || data.error}`)
+      console.error('Pesapal order error:', JSON.stringify(data, null, 2))
+      throw new Error(`Pesapal order error: ${data.message || data.error || JSON.stringify(data)}`)
+    }
+
+    if (!data.redirect_url) {
+      console.error('No redirect_url in response:', JSON.stringify(data, null, 2))
+      throw new Error(`No redirect URL received from Pesapal: ${JSON.stringify(data)}`)
     }
 
     return data

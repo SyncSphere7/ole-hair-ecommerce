@@ -24,18 +24,31 @@ export async function POST(request: NextRequest) {
       deliveryAddress,
     } = body
 
+    console.log('Pesapal initiate request:', { orderNumber, amount, currency, email, phone })
+
     // Validate required fields
     if (!orderNumber || !amount || !email || !phone || !firstName || !lastName) {
+      console.error('Missing required fields:', { orderNumber, amount, email, phone, firstName, lastName })
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 })
     }
 
+    // Verify environment variables
+    if (!process.env.PESAPAL_CONSUMER_KEY || !process.env.PESAPAL_CONSUMER_SECRET) {
+      console.error('Pesapal credentials not configured')
+      return NextResponse.json({ error: 'Payment system not configured' }, { status: 500 })
+    }
+
+    console.log('Getting Pesapal auth token...')
     // Get Pesapal auth token
     const token = await getPesapalToken()
+    console.log('Got token, preparing order...')
 
     // Get the base URL for callbacks
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'
     const callbackUrl = `${baseUrl}/api/pesapal/callback`
     const notificationId = process.env.PESAPAL_IPN_ID || ''
+
+    console.log('Callback URL:', callbackUrl, 'IPN ID:', notificationId)
 
     // Prepare order data for Pesapal
     const pesapalOrder = {
@@ -60,7 +73,9 @@ export async function POST(request: NextRequest) {
     }
 
     // Submit order to Pesapal
+    console.log('Submitting order to Pesapal:', pesapalOrder.id)
     const pesapalResponse = await submitPesapalOrder(pesapalOrder, token)
+    console.log('Pesapal response received:', pesapalResponse.order_tracking_id)
 
     // Store order in database
     const { data: sessionData } = await supabase.auth.getSession()
